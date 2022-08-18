@@ -232,10 +232,10 @@ function PALETTE:set_statusline_colors()
 	--                                                           FG                     BG                      ATTR
 	vim.api.nvim_set_hl(0, "StatusLine",               HIGHLIGHT(self.gray.normal,      self.black.normal,      nil))
 	vim.api.nvim_set_hl(0, "StatusLineBlock",          HIGHLIGHT(self.gray.normal,      self.black.bright,      {bold=true}))
-	vim.api.nvim_set_hl(0, "NormalMode",               HIGHLIGHT(self.black.normal,     self.pink.bright,       {bold=true}))
-	vim.api.nvim_set_hl(0, "InsertMode",               HIGHLIGHT(self.black.normal,     self.red.normal,        {bold=true}))
-	vim.api.nvim_set_hl(0, "VisualMode",               HIGHLIGHT(self.black.normal,     self.blue.bright,       {bold=true}))
-	vim.api.nvim_set_hl(0, "SpecialMode",              HIGHLIGHT(self.black.normal,     self.yellow.normal,     {bold=true}))
+	vim.api.nvim_set_hl(0, "NormalMode",               HIGHLIGHT(self.black.normal,     self.red.normal,        {bold=true}))
+	vim.api.nvim_set_hl(0, "InsertMode",               HIGHLIGHT(self.black.normal,     self.pink.normal,       {bold=true}))
+	vim.api.nvim_set_hl(0, "VisualMode",               HIGHLIGHT(self.black.normal,     self.azure.normal,      {bold=true}))
+	vim.api.nvim_set_hl(0, "SpecialMode",              HIGHLIGHT(self.black.normal,     self.orange.bright,     {bold=true}))
 end
 
 function PALETTE:set_gitsigns_colors()
