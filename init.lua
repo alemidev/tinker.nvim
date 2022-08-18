@@ -38,6 +38,7 @@ vim.opt.foldlevelstart = 50
 vim.opt.termguicolors = true
 -- vim.opt.signcolumn = "yes"
 vim.opt.switchbuf = "usetab"
+vim.g.mapleader = "\\"
 
 vim.opt.list = true            -- always show whitespace chars
 vim.opt.listchars = "tab:│ ,space:·,trail:•,nbsp:▭,precedes:◀,extends:▶"
@@ -78,11 +79,17 @@ vim.opt.relativenumber = true
 local number_mode_group = vim.api.nvim_create_augroup("NumberModeGroup", {clear=true})
 vim.api.nvim_create_autocmd(
 	{ "InsertLeave", "BufEnter", "FocusGained", "WinEnter" },
-	{ callback=function() vim.opt.relativenumber = true end, group=number_mode_group }
+	{
+		callback = function() if vim.wo.number then vim.wo.relativenumber = true end end,
+		group = number_mode_group
+	}
 )
 vim.api.nvim_create_autocmd(
 	{ "InsertEnter", "BufLeave", "FocusLost", "WinLeave" },
-	{ callback=function() vim.opt.relativenumber = false end, group=number_mode_group }
+	{
+		callback=function() if vim.wo.number then vim.opt.relativenumber = false end end,
+		group=number_mode_group
+	}
 )
 
 
@@ -125,6 +132,16 @@ PALETTE:set_colors()
 
 --|| UTILITY
 function P(something) print(vim.inspect(something)) end
+
+function HL()
+	local id = vim.fn.synID(vim.fn.line('.'), vim.fn.col('.'), 1)
+	local id_trans = vim.fn.synIDtrans(id)
+	local name = vim.fn.synIDattr(id_trans, 'name')
+	print(id)
+	print(id_trans)
+	print(name)
+	P(name)
+end
 
 vim.api.nvim_create_user_command(
 	'UpdateConfig',
