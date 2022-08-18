@@ -183,7 +183,7 @@ function PALETTE:set_ui_colors()
 	vim.api.nvim_set_hl(0, "VertSplit",                HIGHLIGHT(self.black.normal,     self.black.normal,      nil)) -- Split divider color
 	vim.api.nvim_set_hl(0, "SignColumn",               HIGHLIGHT(nil,                   nil,                    nil)) -- Gutter color
 	vim.api.nvim_set_hl(0, "CursorLine",               HIGHLIGHT(nil,                   nil,                    nil)) -- Line number color
-	vim.api.nvim_set_hl(0, "CursorLineSign",           HIGHLIGHT(nil,                   nil,                    nil)) -- CursorLine color (in sign column)
+	vim.api.nvim_set_hl(0, "CursorLineSign",           HIGHLIGHT(nil,                   self.black.normal,      nil)) -- CursorLine color (in sign column)
 	vim.api.nvim_set_hl(0, "CursorLineNr",             HIGHLIGHT(self.yellow.normal,    self.black.normal,      {bold=true})) -- CursorLine color (in number column)
 	vim.api.nvim_set_hl(0, "LineNr",                   HIGHLIGHT(self.black.bright,     nil,                    nil)) -- Number column color
 

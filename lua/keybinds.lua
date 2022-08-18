@@ -21,7 +21,9 @@
                              &&&                                                                                          
 ]]--
 
-local KEYBINDS = { }
+local KEYBINDS = {
+	foldcolumn = false,
+}
 
 --|| GLOBAL KEYBINDS
 function KEYBINDS:set_global_keys(opts)
@@ -38,6 +40,15 @@ function KEYBINDS:set_global_keys(opts)
 	vim.keymap.set('n', '<C-t>', ':NvimTreeToggle<CR>', {noremap=true})
 	-- Esc goes back to normal mode in terminal
 	vim.keymap.set('t', '<ESC>', '<C-\\><C-n>', opts)
+
+	vim.keymap.set('n', 'zi', function()
+		if self.foldcolumn then
+			vim.opt.foldcolumn = '0'
+		else
+			vim.opt.foldcolumn = '2'
+		end
+		self.foldcolumn = not self.foldcolumn
+	end)
 end
 
 function KEYBINDS:set_navigation_keys(opts)
