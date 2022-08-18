@@ -70,6 +70,8 @@ vim.g.wiki_root = "~/Documents/wiki"
 -- vim.opt.timeoutlen = 500       -- set shorter timeout for keys
 -- vim.opt.ttimeoutlen = 10       -- set even shorter timeout for ESC
 
+
+--|| NUMBERS
 -- relativenumbers are very handy for navigation, but absolute are useful in general 
 --   and better looking. Keep numbers relative only on active buffer and if in Normal mode.
 vim.opt.relativenumber = true
@@ -128,7 +130,7 @@ vim.api.nvim_create_user_command(
 	'UpdateConfig',
 	function(args)
 		local stdout = vim.fn.system(string.format("git -C %s pull", vim.fn.stdpath('config')))
-		print(stdout:sub(0, #stdout-1))
+		print(stdout:sub(0, #stdout-1)) -- strip tailing newline
 	end,
 	{}
 )
