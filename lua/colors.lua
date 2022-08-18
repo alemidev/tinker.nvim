@@ -249,7 +249,7 @@ end
 function PALETTE:set_telescope_colors()
 	--                                                           FG                     BG                      ATTR
 	vim.api.nvim_set_hl(0, "TelescopeBorder",          HIGHLIGHT(self.black.bright,     nil,                    nil));
-	-- vim.api.nvim_set_hl(0, "TelescopePromptBorder",    highlight(self.black.bright,     nil,                    nil));
+	-- vim.api.nvim_set_hl(0, "TelescopePromptBorder",    highlight(self.black.bright,     nil,                    nil))
 	-- vim.api.nvim_set_hl(0, "TelescopePromptNormal",    highlight());
 	-- vim.api.nvim_set_hl(0, "TelescopePromptPrefix",    highlight());
 	-- vim.api.nvim_set_hl(0, "TelescopeNormal",          highlight());
@@ -258,6 +258,38 @@ function PALETTE:set_telescope_colors()
 	-- vim.api.nvim_set_hl(0, "TelescopeResultsTitle",    highlight());
 	-- vim.api.nvim_set_hl(0, "TelescopeSelection",       highlight());
 	-- vim.api.nvim_set_hl(0, "TelescopePreviewLine",     highlight());
+end
+
+function PALETTE:set_dap_colors()
+	--                                                           FG                     BG                      ATTR
+	vim.api.nvim_set_hl(0, "DapMarks",                 HIGHLIGHT(self.purple.normal,    nil,                    {bold=true}))
+	vim.api.nvim_set_hl(0, "DapStep",                  HIGHLIGHT(nil,                   self.black.normal,      nil))
+	vim.api.nvim_set_hl(0, "DapStepNr",                HIGHLIGHT(self.purple.normal,    self.black.normal,      {bold=true}))
+	-- DapUIVariable  xxx links to Normal
+	-- DapUIScope     xxx guifg=#00F1F5
+	-- DapUIType      xxx guifg=#D484FF
+	-- DapUIValue     xxx links to Normal
+	-- DapUIModifiedValue xxx gui=bold guifg=#00F1F5
+	-- DapUIDecoration xxx guifg=#00F1F5
+	-- DapUIThread    xxx guifg=#A9FF68
+	-- DapUIStoppedThread xxx guifg=#00f1f5
+	-- DapUIFrameName xxx links to Normal
+	-- DapUISource    xxx guifg=#D484FF
+	-- DapUILineNumber xxx guifg=#00f1f5
+	-- DapUIFloatBorder xxx guifg=#00F1F5
+	-- DapUIWatchesEmpty xxx guifg=#F70067
+	-- DapUIWatchesValue xxx guifg=#A9FF68
+	-- DapUIWatchesError xxx guifg=#F70067
+	-- DapUIBreakpointsPath xxx guifg=#00F1F5
+	-- DapUIBreakpointsInfo xxx guifg=#A9FF68
+	-- DapUIBreakpointsCurrentLine xxx gui=bold guifg=#A9FF68
+	-- DapUIBreakpointsLine xxx links to DapUILineNumber
+	-- DapUIBreakpointsDisabledLine xxx guifg=#424242
+	vim.fn.sign_define('DapBreakpoint',          {text='⬤', texthl='DapMarks', linehl='', numhl=''})
+	vim.fn.sign_define('DapBreakpointCondition', {text='◯', texthl='DapMarks', linehl='', numhl=''})
+	vim.fn.sign_define('DapBreakpointRejected',  {text='⦻', texthl='DapMarks', linehl='', numhl=''})
+	vim.fn.sign_define('DapLogPoint',            {text='□', texthl='DapMarks', linehl='', numhl=''})
+	vim.fn.sign_define('DapStopped',             {text='➤', texthl='DapStepNr', linehl='DapStep', numhl='DapStepNr'})
 end
 
 --- set all theme highlight groups
@@ -273,6 +305,7 @@ function PALETTE:set_colors()
 	self:set_treesitter_colors()
 	self:set_gitsigns_colors()
 	self:set_telescope_colors()
+	self:set_dap_colors()
 end
 
 return PALETTE

@@ -38,13 +38,68 @@ local init_fn = function(use)
 	use 'neovim/nvim-lspconfig'         -- import LSP configurations
 	use 'simrat39/rust-tools.nvim'      -- extra LSP defaults for rust
 
-	use 'hrsh7th/nvim-cmp'              -- completion engine core
-	use 'hrsh7th/cmp-nvim-lsp'          -- completions based on LSP
-	use 'hrsh7th/cmp-path'              -- completions based on paths
-	use 'hrsh7th/cmp-buffer'            -- completions based on buffer
-
 	use 'L3MON4D3/LuaSnip'              -- snippet engine
-	use 'saadparwaiz1/cmp_luasnip'      -- incorporate with completions
+
+	use {
+		'mfussenegger/nvim-dap',        -- debugger adapter protocol
+		requires = {
+			'rcarriga/nvim-dap-ui',     --batteries-included debugger ui
+		},
+		config = function()
+			local dap = require('dap')
+			dap.adapters.python = {
+				type = 'executable',
+				command = (vim.fn.environ()["VIRTUAL_ENV"] or "") .. "/bin/python",
+				args = { '-m', 'debugpy.adapter' },
+			}
+			dap.configurations.python = {
+				{
+					name = "Launch file",
+					type = "python",
+					request = "launch",
+					program = vim.fn.expand('%'),
+					cwd = '${workspaceFolder}',
+				},
+			}
+			dap.adapters.lldb = {
+				type = 'executable',
+				command = '/usr/bin/lldb-vscode', -- adjust as needed, must be absolute path
+				name = 'lldb'
+			}
+			dap.configurations.cpp = {
+				{
+					name = 'Launch',
+					type = 'lldb',
+					request = 'launch',
+					program = function()
+						local program = ""
+						for i in string.gmatch(vim.fn.getcwd(), "([^/]+)") do
+							program = i
+						end
+						return vim.fn.getcwd() .. "/target/debug/" .. program -- TODO can I put startup file somewhere?
+					end,
+					cwd = '${workspaceFolder}',
+				},
+			}
+			dap.configurations.c = dap.configurations.cpp
+			dap.configurations.rust = dap.configurations.cpp
+			require('keybinds'):set_dap_keys({})
+			require('dapui').setup()
+		end,
+	}
+
+	use {
+		'hrsh7th/nvim-cmp',             -- completion engine core
+		requires = {
+			'hrsh7th/cmp-nvim-lsp',                 -- complete with LSP
+			'hrsh7th/cmp-nvim-lsp-signature-help',  -- complete function signatures
+			'hrsh7th/cmp-nvim-lsp-document-symbol', -- complete document symbols
+			'hrsh7th/cmp-path',                     -- complete paths
+			'hrsh7th/cmp-buffer',                   -- complete based on buffer
+			'rcarriga/cmp-dap',                     -- complete in debugger
+			'saadparwaiz1/cmp_luasnip',             -- complete with snippets
+		},
+	}
 
 	use {
 		'norcalli/nvim-colorizer.lua',
@@ -61,7 +116,7 @@ local init_fn = function(use)
 		config = function()
 			require('telescope').load_extension('fzf')
 			require("telescope").load_extension("ui-select")
-			require('keybinds').set_telescope_keys({})
+			require('keybinds'):set_telescope_keys({})
 		end
 	}
 
@@ -117,24 +172,33 @@ local init_fn = function(use)
 	-- TODO this part is messy, can I make it cleaner?
 	-- TODO can I put these setup steps inside their respective config callback?
 	-- TODO can I make them also load their highlight groups?
+	
 
 	local cmp = require('cmp')
 	cmp.setup({
 		snippet = {
 			expand = function(args) require('luasnip').lsp_expand(args.body) end,
 		},
-		mapping = cmp.mapping.preset.insert({
-			['<C-Space>'] = cmp.mapping.complete(),
-			['<C-e>'] = cmp.mapping.abort(),
-			['<C-Tab>'] = function(fallback) if cmp.visible() then cmp.select_next_item() else fallback() end end,
-			['<Tab>'] = cmp.mapping.confirm({ select = true }),
-		}),
+		mapping = cmp.mapping.preset.insert({ ['<Tab>'] = cmp.mapping.confirm({ select = true }) }),
 		sources = cmp.config.sources({
+			{ name = 'nvim_lsp_signature_help', max_item_count = 1 },
+			{ name = 'luasnip' },
 			{ name = 'nvim_lsp' },
-		}, {
-			{ name = 'path' },
-		}, {
-			{ name = 'buffer' },
+			{ name = 'path', max_item_count = 3 },
+			{ name = 'buffer', keyword_length = 3, max_item_count = 3 },
+		}),
+	})
+	cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
+		mapping = cmp.mapping.preset.insert({ ['<Tab>'] = cmp.mapping.confirm({ select = true }) }),
+		sources = {
+			{ name = 'dap' },
+		},
+	})
+	cmp.setup.cmdline('/', {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({
+			{ name = 'nvim_lsp_document_symbol' },
+			{ name = 'buffer', keyword_length = 3 },
 		})
 	})
 
@@ -156,7 +220,8 @@ local init_fn = function(use)
 		server = {
 			capabilities = capabilities,
 			on_attach = set_lsp_binds,
-		}
+		},
+		dap = { adapter = require('dap').adapters.lldb },
 	})
 	rust_tools.inlay_hints.enable()
 
@@ -190,5 +255,4 @@ local init_fn = function(use)
 end
 
 return require('packer').startup(init_fn)
-
 

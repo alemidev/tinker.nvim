@@ -28,12 +28,10 @@ local KEYBINDS = {
 --|| GLOBAL KEYBINDS
 function KEYBINDS:set_global_keys(opts)
 	-- Quick settings
-	vim.keymap.set('n', '<F10>', ':set hls!<CR>', opts)
-	vim.keymap.set('n', '<F9>',  ':set wrap!<CR>', opts)
-	vim.keymap.set('n', '<F8>',  ':set list!<CR>', opts)
-	vim.keymap.set('n', '<F7>',  ':set spell!<CR>', opts)
-	vim.keymap.set('n', '<F6>',  ':Hexmode<CR>', opts)
-	vim.keymap.set('n', '<F5>',  ':Telescope oldfiles<CR>', opts)
+	vim.keymap.set('n', '<M-h>', ':set hls!<CR>', opts)
+	vim.keymap.set('n', '<M-w>', ':set wrap!<CR>', opts)
+	vim.keymap.set('n', '<M-l>', ':set list!<CR>', opts)
+	vim.keymap.set('n', '<M-s>', ':set spell!<CR>', opts)
 	-- Files navigation
 	vim.keymap.set('n', '<C-S-t>', ':tabnew<CR>', opts)
 	vim.keymap.set('n', '<M-t>', ':tabnew<CR>', opts) -- fallback for windows
@@ -90,6 +88,7 @@ end
 
 function KEYBINDS:set_telescope_keys(opts)
 	-- File navigation
+	vim.keymap.set('n', '<C-ESC>', ':Telescope oldfiles<CR>', opts)
 	vim.keymap.set('n', '<C-f>', ':Telescope find_files<CR>', opts)
 	vim.keymap.set('n', 'F', ':Telescope find_files<CR>', opts) -- fallback for windows
 	vim.keymap.set('n', '<C-,>', ':Telescope live_grep<CR>', opts)
@@ -110,6 +109,18 @@ function KEYBINDS:set_telescope_keys(opts)
 	-- Error list with telescope
 	vim.keymap.set('n', '<C-PageUp>', ':Telescope diagnostics<CR>', opts)
 	vim.keymap.set('n', '<C-PageDown>', ':Telescope diagnostics bufnr=0<CR>', opts)
+end
+
+function KEYBINDS:set_dap_keys(opts)
+	-- dapui
+	local dap = require('dap')
+	local dapui = require('dapui')
+	vim.keymap.set('n', '<F2>' , function() dapui.toggle({}) end, {})
+	vim.keymap.set('n', '<F3>' , function() dap.toggle_breakpoint() end, {})
+	vim.keymap.set('n', '<F5>' , function() dap.continue() end, {})
+	vim.keymap.set('n', '<F10>', function() dap.step_over() end, {})
+	vim.keymap.set('n', '<F11>', function() dap.step_into() end, {})
+	vim.keymap.set('n', '<F12>', function() dap.step_out() end, {})
 end
 
 return KEYBINDS
