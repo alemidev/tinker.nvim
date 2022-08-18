@@ -55,7 +55,7 @@ vim.opt.showtabline = 1  -- set to 2 to always show tabline
 -- Statusline
 STATUSLINE = require('statusline')
 vim.opt.laststatus = 3  -- show one global statusline
-vim.opt.statusline = "%!v:lua.STATUSLINE:display()"
+vim.opt.statusline = "%!v:lua.STATUSLINE.display()"
 
 
 -- Netrw settings
@@ -113,10 +113,13 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 	local packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
-plugins = require('plugins')
+PLUGINS = require('plugins')
 
 
 --|| THEME
 PALETTE = require('colors')
-
 PALETTE:set_colors()
+
+
+--|| UTILITY
+function P(something) print(vim.inspect(something)) end

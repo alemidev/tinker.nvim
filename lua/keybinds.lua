@@ -21,10 +21,10 @@
                              &&&                                                                                          
 ]]--
 
-local MAPPINGS = { }
+local KEYBINDS = { }
 
 --|| GLOBAL KEYBINDS
-function MAPPINGS:set_global_keys(opts)
+function KEYBINDS:set_global_keys(opts)
 	-- Quick settings
 	vim.keymap.set('n', '<F10>', ':set hls!<CR>', opts)
 	vim.keymap.set('n', '<F9>',  ':set wrap!<CR>', opts)
@@ -40,7 +40,7 @@ function MAPPINGS:set_global_keys(opts)
 	vim.keymap.set('t', '<ESC>', '<C-\\><C-n>', opts)
 end
 
-function MAPPINGS:set_navigation_keys(opts)
+function KEYBINDS:set_navigation_keys(opts)
 	-- lazy arrow scrolling
 	vim.keymap.set('n', '<S-Up>', '<C-u>', opts)
 	vim.keymap.set('n', '<S-Down>', '<C-d>', opts)
@@ -52,7 +52,7 @@ function MAPPINGS:set_navigation_keys(opts)
 	vim.keymap.set('n', '<M-Left>', ':vertical resize -1<CR>', opts)
 end
 
-function MAPPINGS:set_lsp_keys(opts)
+function KEYBINDS:set_lsp_keys(opts)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(opts.buffer, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 	-- Enable Lsp tagfunc
@@ -77,7 +77,7 @@ function MAPPINGS:set_lsp_keys(opts)
 	vim.api.nvim_create_user_command('Format', ':lua vim.lsp.buf.formatting()<CR>', {}) -- TODO if function is passed directly, it doesn't work!
 end
 
-function MAPPINGS:set_telescope_keys(opts)
+function KEYBINDS:set_telescope_keys(opts)
 	-- File navigation
 	vim.keymap.set('n', '<C-f>', ':Telescope find_files<CR>', opts)
 	vim.keymap.set('n', 'F', ':Telescope find_files<CR>', opts) -- fallback for windows
@@ -101,4 +101,4 @@ function MAPPINGS:set_telescope_keys(opts)
 	vim.keymap.set('n', '<C-PageDown>', ':Telescope diagnostics bufnr=0<CR>', opts)
 end
 
-return MAPPINGS
+return KEYBINDS
