@@ -123,3 +123,12 @@ PALETTE:set_colors()
 
 --|| UTILITY
 function P(something) print(vim.inspect(something)) end
+
+vim.api.nvim_create_user_command(
+	'UpdateConfig',
+	function(args)
+		local stdout = vim.fn.system(string.format("git -C %s pull", vim.fn.stdpath('config')))
+		print(stdout:sub(0, #stdout-1))
+	end,
+	{}
+)
