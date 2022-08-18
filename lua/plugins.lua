@@ -144,7 +144,7 @@ local init_fn = function(use)
 	local lspconfig = require("lspconfig")
 
 	local function set_lsp_binds(_, bufnr)
-		require('keybinds').set_lsp_keys({buffer=bufnr})
+		require('keybinds'):set_lsp_keys({buffer=bufnr})
 	end
 
 	local rust_tools = require("rust-tools")

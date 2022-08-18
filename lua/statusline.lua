@@ -1,25 +1,25 @@
 --[[
                                                                                    
-           GJ5GPP#           ####              ██████╗ ██╗██╗  ██╗███████╗         
-           5:. !5          #^!??7B             ██╔══██╗██║██║ ██╔╝██╔════╝         
-              !Y ###########7^                 ██████╔╝██║█████╔╝ █████╗           
-              G ~J?JJJJJJJJJJ^?                ██╔══██╗██║██╔═██╗ ██╔══╝           
-             #^!:#           G 5               ██████╔╝██║██║  ██╗███████╗         
-    #G5JJ?JJ5:?@J:         #?7J.JJ?JJYPB       ╚═════╝ ╚═╝╚═╝  ╚═╝╚══════╝         
-  #?!JPBB##G.~77B!!      #J~!7??.B##BGY7!P                                         
- P:Y#      ^?  P:J:Y    5~J~J#  ?7      B~!     * simple statusbar for             
-B.G       ~7    #.Y.G G!?#~?     ~Y       ~7       when you'd rather               
-J:       7.YYY55G:!?.7!B #.B     #~B      P.       use something you               
-P.#      BBGGPPPY 7Y7P    :Y       #      7^       can fix yourself                
- ?^B           #~7        G:5            J:B                                       
-  P~7P##    #P?~5          B!!YB#    #BY~7#     * by alemidev <me@alemi.dev>       
-    GJ?7???7?JG              BY?7???77?5#                                          
-        ###                      ####           * inspired by airline, but         
-                                                   straight and simpler            
+           GJ5GPP#           ####         ██████╗  █████╗ ██████╗  ██████╗██╗   ██╗ ██████╗██╗     ███████╗ 
+           5:. !5          #^!??7B        ██╔══██╗██╔══██╗██╔══██╗██╔════╝╚██╗ ██╔╝██╔════╝██║     ██╔════╝ 
+              !Y ###########7^            ██████╔╝███████║██████╔╝██║      ╚████╔╝ ██║     ██║     █████╗   
+              G ~J?JJJJJJJJJJ^?           ██╔══██╗██╔══██║██╔══██╗██║       ╚██╔╝  ██║     ██║     ██╔══╝   
+             #^!:#           G 5          ██████╔╝██║  ██║██║  ██║╚██████╗   ██║   ╚██████╗███████╗███████╗ 
+    #G5JJ?JJ5:?@J:         #?7J.JJ?JJYPB  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝   ╚═╝    ╚═════╝╚══════╝╚══════╝ 
+  #?!JPBB##G.~77B!!      #J~!7??.B##BGY7!P                                                                  
+ P:Y#      ^?  P:J:Y    5~J~J#  ?7      B~!     * simple statusbar for            * inspired by airline,    
+B.G       ~7    #.Y.G G!?#~?     ~Y       ~7       when you'd rather                 but without the        
+J:       7.YYY55G:!?.7!B #.B     #~B      P.       use something you                 arrow things and       
+P.#      BBGGPPPY 7Y7P    :Y       #      7^       can fix yourself                  way simpler            
+ ?^B           #~7        G:5            J:B                                                                
+  P~7P##    #P?~5          B!!YB#    #BY~7#     * by alemidev <me@alemi.dev>      * drive less, bike more!  
+    GJ?7???7?JG              BY?7???77?5#                                                                   
+        ###                      ####                                                                       
+                                                                                                            
 ]]--
 
 --- global statusline object
-local STATUSLINE = {
+local BARCYCLE = {
 	mode_string = {
 		['n' ] = 'NORMAL',
 		['no'] = 'NORMAL op',
@@ -64,7 +64,7 @@ local STATUSLINE = {
 	},
 }
 
-function STATUSLINE:linter()
+function BARCYCLE:linter()
 	local n_warns = 0
 	local warns = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
 	if warns ~= nil then n_warns = #warns end
@@ -80,14 +80,14 @@ function STATUSLINE:linter()
 	end
 end
 
-function STATUSLINE:combo()
+function BARCYCLE:combo()
 	if vim.g.combo ~= nil then
 		return vim.g.combo
 	end
 	return ""
 end
 
-function STATUSLINE:git()
+function BARCYCLE:git()
 	if vim.fn['fugitive#Head']() ~= nil then
 		return vim.fn['fugitive#Head']()
 	else
@@ -95,7 +95,7 @@ function STATUSLINE:git()
 	end
 end
 
-function STATUSLINE:lsp()
+function BARCYCLE:lsp()
 	local clients = vim.lsp.buf_get_clients(0)
 	if #clients > 0 then
 		local client_names = {}
@@ -108,24 +108,26 @@ function STATUSLINE:lsp()
 	end
 end
 
-function STATUSLINE:display()
+function BARCYCLE:statusline()
 	local mode = vim.fn.mode()
 	local line = {
 		self.mode_highlight[mode] .. " " .. self.mode_string[mode],
-		"%#StatusLineBlock# %Y",
-		"%{v:lua.statusline.combo()}",
-		"%{v:lua.statusline.linter()}",
+		"%#StatusLineBlock# %Y", -- type of file
+		self:combo(),
+		self:linter(),
 		"%#StatusLine#",
-		"%{v:lua.statusline.git()}",
-		"%r%h%w%m %<%F ",
+		self:git(),
+		"%r%h%w%m %<%F ", -- file flags (RO, HELP, PREVIEW, MODIFY), file path
 		"%=", -- change alignment
-		"%{v:lua.statusline.lsp()}",
+		self:lsp(),
 		"%{&fileencoding?&fileencoding:&encoding}",
 		"%{&fileformat}",
-		"%#StatusLineBlock# %3l:%-3c %3p%%",
-		self.mode_highlight[mode] .. " %n " .. "%0*"
+		"%#StatusLineBlock# %3l:%-3c %3p%%", -- cursor coordinates: line (formatted), column (formatted), percentage (formatted)
+		self.mode_highlight[mode] .. " %n " .. "%0*" -- buffer number
 	}
 	return table.concat(line, " ")
 end
 
-return STATUSLINE
+function BARCYCLE.display() return BARCYCLE:statusline() end
+
+return BARCYCLE
