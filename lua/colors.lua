@@ -152,7 +152,7 @@ function PALETTE:set_treesitter_colors()
 	vim.api.nvim_set_hl(0, "TSLabel",                  HIGHLIGHT(self.yellow.bright,    nil,                    nil))
 	vim.api.nvim_set_hl(0, "TSTag",                    HIGHLIGHT(self.yellow.normal,    nil,                    nil))
 	vim.api.nvim_set_hl(0, "TSTagDelimiter",           HIGHLIGHT(self.yellow.dark,      nil,                    nil))
-	vim.api.nvim_set_hl(0, "TSVariableBuiltin",        HIGHLIGHT(self.yellow.normal,    nil,                    {bold=true}))
+	vim.api.nvim_set_hl(0, "TSVariableBuiltin",        HIGHLIGHT(self.yellow.bright,    nil,                    {bold=true}))
 	vim.api.nvim_set_hl(0, "TSURI",                    HIGHLIGHT(self.blue.normal,      nil,                    {underline=true}))
 	-- delimiter
 	vim.api.nvim_set_hl(0, "TSPunctDelimiter",         HIGHLIGHT(self.gray.bright,      nil,                    nil))
