@@ -189,9 +189,11 @@ function PALETTE:set_ui_colors()
 
 	vim.api.nvim_set_hl(0, "Question",                 HIGHLIGHT(self.cyan.normal,      nil,                    {bold=true}))
 	vim.api.nvim_set_hl(0, "MoreMsg",                  HIGHLIGHT(self.black.bright,     nil,                    {bold=true}))
+	vim.api.nvim_set_hl(0, "Error",                    HIGHLIGHT(self.red.normal,       nil,                    {underline=true}))
 	vim.api.nvim_set_hl(0, "ErrorMsg",                 HIGHLIGHT(self.white.normal,     self.red.normal,        nil))
+	vim.api.nvim_set_hl(0, "Todo"    ,                 HIGHLIGHT(self.black.normal,     self.orange.bright,     {bold=true}))
 	vim.api.nvim_set_hl(0, "WarningMsg",               HIGHLIGHT(self.black.normal,     self.yellow.normal,     nil))
-	vim.api.nvim_set_hl(0, "Title",                    HIGHLIGHT(self.pink.dark,        nil,                    {bold=true}))
+	vim.api.nvim_set_hl(0, "Title",                    HIGHLIGHT(self.red.bright,       nil,                    {bold=true}))
 	vim.api.nvim_set_hl(0, "WildMenu",                 HIGHLIGHT(self.gray.bright,      self.orange.dark,       nil))
 	vim.api.nvim_set_hl(0, "ColorColumn",              HIGHLIGHT(self.gray.dark,        self.orange.normal,     nil))
 
