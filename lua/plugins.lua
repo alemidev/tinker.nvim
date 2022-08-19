@@ -98,6 +98,7 @@ local init_fn = function(use)
 			'hrsh7th/cmp-buffer',                   -- complete based on buffer
 			'rcarriga/cmp-dap',                     -- complete in debugger
 			'saadparwaiz1/cmp_luasnip',             -- complete with snippets
+			'onsails/lspkind.nvim',                 -- fancy icons and formatting
 		},
 	}
 
@@ -172,10 +173,17 @@ local init_fn = function(use)
 	-- TODO this part is messy, can I make it cleaner?
 	-- TODO can I put these setup steps inside their respective config callback?
 	-- TODO can I make them also load their highlight groups?
-	
+	-- TODO can I make nvim-cmp configuration smaller?
 
 	local cmp = require('cmp')
 	cmp.setup({
+		formatting = {
+			format = function(entry, vim_item)
+				local kind = require("lspkind").cmp_format({ mode = "symbol" })(entry, vim_item)
+				kind.kind = " " .. kind.kind .. " "
+				return kind
+			end,
+		},
 		snippet = {
 			expand = function(args) require('luasnip').lsp_expand(args.body) end,
 		},
@@ -189,12 +197,26 @@ local init_fn = function(use)
 		}),
 	})
 	cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
+		formatting = {
+			format = function(entry, vim_item)
+				local kind = require("lspkind").cmp_format({ mode = "symbol" })(entry, vim_item)
+				kind.kind = " " .. kind.kind .. " "
+				return kind
+			end,
+		},
 		mapping = cmp.mapping.preset.insert({ ['<Tab>'] = cmp.mapping.confirm({ select = true }) }),
 		sources = {
 			{ name = 'dap' },
 		},
 	})
 	cmp.setup.cmdline('/', {
+		formatting = {
+			format = function(entry, vim_item)
+				local kind = require("lspkind").cmp_format({ mode = "symbol" })(entry, vim_item)
+				kind.kind = " " .. kind.kind .. " "
+				return kind
+			end,
+		},
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
 			{ name = 'nvim_lsp_document_symbol' },
