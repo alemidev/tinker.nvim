@@ -137,17 +137,28 @@ function HL()
 	local id = vim.fn.synID(vim.fn.line('.'), vim.fn.col('.'), 1)
 	local id_trans = vim.fn.synIDtrans(id)
 	local name = vim.fn.synIDattr(id_trans, 'name')
-	print(id)
-	print(id_trans)
-	print(name)
+	print(string.format("Highlight #%d -> %s", id, id_trans))
 	P(name)
+end
+
+local function shell_cmd(str)
+	local stdout = vim.fn.system(str)
+	local output, _ = stdout:sub(0, #stdout-1):gsub("\t", "    ")
+	print(output)
+	return vim.v.shell_error == 0
 end
 
 vim.api.nvim_create_user_command(
 	'UpdateConfig',
 	function(args)
-		local stdout = vim.fn.system(string.format("git -C %s pull", vim.fn.stdpath('config')))
-		print(stdout:sub(0, #stdout-1)) -- strip tailing newline
+		local cfg_path = vim.fn.stdpath('config')
+		if args.bang then
+			if not shell_cmd(string.format("git -C %s reset --hard", cfg_path)) then return end
+		end
+		if #args.args > 0 then
+			if not shell_cmd(string.format("git -C %s checkout %s", cfg_path, args.args)) then return end
+		end
+		shell_cmd(string.format("git -C %s pull", cfg_path))
 	end,
-	{}
+	{bang=true, nargs='?'}
 )
