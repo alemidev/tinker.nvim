@@ -33,6 +33,8 @@ local init_fn = function(use)
 	use 'alemidev/vim-combo'            -- track code combos
 	use 'editorconfig/editorconfig-vim' -- respect editorconfig
 
+	use "ellisonleao/glow.nvim"         -- markdown previewer with glow
+
 	use 'tpope/vim-fugitive'            -- better git commands
 
 	use 'neovim/nvim-lspconfig'         -- import LSP configurations
@@ -250,6 +252,7 @@ local init_fn = function(use)
 	lspconfig.bashls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 	lspconfig.pyright.setup({capabilites=capabilities, on_attach=set_lsp_binds})
 	lspconfig.clangd.setup({capabilities=capabilities, on_attach=set_lsp_binds})
+	lspconfig.marksman.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 
 	local jdtls_bin_path = os.getenv("JDTLS_BIN_PATH") or "jdtls"
 	local home_path = os.getenv("HOME") -- TODO this is not windows friendly
