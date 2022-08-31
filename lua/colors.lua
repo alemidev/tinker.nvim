@@ -190,6 +190,8 @@ function PALETTE:set_ui_colors()
 	vim.api.nvim_set_hl(0, "PmenuSel",                 HIGHLIGHT(nil,                   self.gray.dark,         nil)) -- Balloon color
 	-- vim.api.nvim_set_hl(0, "PmenuSbar",                HIGHLIGHT(nil,                   self.black.normal,      nil)) -- Balloon color
 	-- vim.api.nvim_set_hl(0, "PmenuThumb",               HIGHLIGHT(nil,                   self.black.normal,      nil)) -- Balloon color
+	vim.api.nvim_set_hl(0, "FloatBorder",              HIGHLIGHT(self.black.bright,     nil,                    nil)) -- Used mostly for replace popup
+	vim.api.nvim_set_hl(0, "FloatTitle",               HIGHLIGHT(self.white.dark,       self.gray.dark,         nil)) -- custom definition of dessing.nvim
 
 	vim.api.nvim_set_hl(0, "Question",                 HIGHLIGHT(self.cyan.normal,      nil,                    {bold=true}))
 	vim.api.nvim_set_hl(0, "MoreMsg",                  HIGHLIGHT(self.black.bright,     nil,                    {bold=true}))
@@ -199,7 +201,7 @@ function PALETTE:set_ui_colors()
 	vim.api.nvim_set_hl(0, "WarningMsg",               HIGHLIGHT(self.black.normal,     self.yellow.normal,     nil))
 	vim.api.nvim_set_hl(0, "Title",                    HIGHLIGHT(self.red.bright,       nil,                    {bold=true}))
 	vim.api.nvim_set_hl(0, "WildMenu",                 HIGHLIGHT(self.gray.bright,      self.orange.dark,       nil))
-	vim.api.nvim_set_hl(0, "ColorColumn",              HIGHLIGHT(self.gray.dark,        self.orange.normal,     nil))
+	vim.api.nvim_set_hl(0, "ColorColumn",              HIGHLIGHT(nil,                   self.black.dark,        nil))
 
 	vim.api.nvim_set_hl(0, "DiagnosticWarn",           HIGHLIGHT(self.orange.normal,    nil,                    nil));
 	vim.api.nvim_set_hl(0, "DiagnosticError",          HIGHLIGHT(self.red.normal,       nil,                    nil));
@@ -239,9 +241,9 @@ function PALETTE:set_statusline_colors()
 	vim.api.nvim_set_hl(0, "StatusLine",               HIGHLIGHT(self.gray.normal,      self.black.normal,      nil))
 	vim.api.nvim_set_hl(0, "StatusLineBlock",          HIGHLIGHT(self.gray.normal,      self.gray.dark,         {bold=true}))
 	vim.api.nvim_set_hl(0, "NormalMode",               HIGHLIGHT(self.black.normal,     self.red.normal,        {bold=true}))
-	vim.api.nvim_set_hl(0, "InsertMode",               HIGHLIGHT(self.black.normal,     self.pink.normal,       {bold=true}))
+	vim.api.nvim_set_hl(0, "InsertMode",               HIGHLIGHT(self.black.normal,     self.orange.bright,     {bold=true}))
 	vim.api.nvim_set_hl(0, "VisualMode",               HIGHLIGHT(self.black.normal,     self.azure.normal,      {bold=true}))
-	vim.api.nvim_set_hl(0, "SpecialMode",              HIGHLIGHT(self.black.normal,     self.orange.bright,     {bold=true}))
+	vim.api.nvim_set_hl(0, "SpecialMode",              HIGHLIGHT(self.black.normal,     self.pink.normal,       {bold=true}))
 end
 
 function PALETTE:set_gitsigns_colors()

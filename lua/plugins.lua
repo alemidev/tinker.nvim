@@ -107,16 +107,16 @@ local init_fn = function(use)
 		config = function () require('colorizer').setup() end
 	}
 
+	use "stevearc/dressing.nvim"          -- better vim.fn.input() and vim.fn.select()
+
 	use {
 		'nvim-telescope/telescope.nvim',  -- fuzzy finder, GUI component
 		requires = {
 			{'nvim-lua/plenary.nvim'},    -- some utilities made for telescope
 			{'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }, -- fzf algorithm implemented in C for faster searches
-			{'nvim-telescope/telescope-ui-select.nvim'},
 		},
 		config = function()
 			require('telescope').load_extension('fzf')
-			require("telescope").load_extension("ui-select")
 			require('keybinds'):set_telescope_keys({})
 		end
 	}
