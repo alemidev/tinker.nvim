@@ -36,6 +36,7 @@ vim.opt.hls = false
 vim.opt.sessionoptions = "buffers,curdir,localoptions,tabpages,winsize"
 vim.opt.foldlevelstart = 50
 vim.opt.termguicolors = true
+vim.opt.scrolloff = 4
 -- vim.opt.signcolumn = "yes"
 vim.opt.switchbuf = "usetab"
 vim.g.mapleader = "\\"
@@ -47,6 +48,7 @@ vim.opt.winheight = 3
 vim.opt.winminheight = 3
 vim.opt.winwidth = 12
 vim.opt.winminwidth = 12
+
 
 -- Tabline
 -- TODO customize structure to make selected tab use same hi as mode, maybe
