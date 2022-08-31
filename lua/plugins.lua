@@ -238,7 +238,7 @@ local init_fn = function(use)
 	local rust_tools = require("rust-tools")
 	rust_tools.setup({
 		tools = {
-			inlay_hints = { auto = true },
+			inlay_hints = { auto = true, highlight = "InlayHint" },
 			hover_actions = { border = "none" },
 		},
 		server = {
