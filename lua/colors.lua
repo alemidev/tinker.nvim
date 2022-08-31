@@ -193,6 +193,9 @@ function PALETTE:set_ui_colors()
 	vim.api.nvim_set_hl(0, "FloatBorder",              HIGHLIGHT(self.black.bright,     nil,                    nil)) -- Used mostly for replace popup
 	vim.api.nvim_set_hl(0, "FloatTitle",               HIGHLIGHT(self.white.dark,       self.gray.dark,         nil)) -- custom definition of dessing.nvim
 
+	-- we configure rust-tools to use this as group
+	vim.api.nvim_set_hl(0, "InlayHint",                HIGHLIGHT(self.black.bright,     nil,                    nil))
+
 	vim.api.nvim_set_hl(0, "Question",                 HIGHLIGHT(self.cyan.normal,      nil,                    {bold=true}))
 	vim.api.nvim_set_hl(0, "MoreMsg",                  HIGHLIGHT(self.black.bright,     nil,                    {bold=true}))
 	vim.api.nvim_set_hl(0, "Error",                    HIGHLIGHT(self.red.normal,       nil,                    {underline=true}))
