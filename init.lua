@@ -67,6 +67,11 @@ vim.g.netrw_banner = 0
 vim.g.netrw_browse_split = 2
 vim.g.netrw_winsize = 12
 
+-- Neovide settings
+vim.g.neovide_transparency = 0.8
+vim.g.neovide_cursor_vfx_mode = "wireframe"
+vim.opt.guifont = { "Fira Code", ":h10" }
+
 -- Wiki.vim settings
 vim.g.wiki_root = "~/Documents/wiki"
 
