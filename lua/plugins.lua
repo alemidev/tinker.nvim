@@ -250,7 +250,7 @@ local init_fn = function(use)
 	rust_tools.inlay_hints.enable()
 
 	lspconfig.bashls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
-	lspconfig.pyright.setup({capabilites=capabilities, on_attach=set_lsp_binds})
+	lspconfig.pylsp.setup({capabilites = capabilities, on_attach = set_lsp_binds, settings = { pylsp = { plugins = { pycodestyle = { enabled = false } } } } })
 	lspconfig.clangd.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 	lspconfig.marksman.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 
