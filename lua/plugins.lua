@@ -211,20 +211,20 @@ local init_fn = function(use)
 			{ name = 'dap' },
 		},
 	})
-	cmp.setup.cmdline('/', {
-		formatting = {
-			format = function(entry, vim_item)
-				local kind = require("lspkind").cmp_format({ mode = "symbol" })(entry, vim_item)
-				kind.kind = " " .. kind.kind .. " "
-				return kind
-			end,
-		},
-		mapping = cmp.mapping.preset.cmdline(),
-		sources = cmp.config.sources({
-			{ name = 'nvim_lsp_document_symbol' },
-			{ name = 'buffer', keyword_length = 3 },
-		})
-	})
+	-- cmp.setup.cmdline('/', {
+	-- 	formatting = {
+	-- 		format = function(entry, vim_item)
+	-- 			local kind = require("lspkind").cmp_format({ mode = "symbol" })(entry, vim_item)
+	-- 			kind.kind = " " .. kind.kind .. " "
+	-- 			return kind
+	-- 		end,
+	-- 	},
+	-- 	mapping = cmp.mapping.preset.cmdline(),
+	-- 	sources = cmp.config.sources({
+	-- 		{ name = 'nvim_lsp_document_symbol' },
+	-- 		{ name = 'buffer', keyword_length = 3 },
+	-- 	})
+	-- })
 
 	-- Setup lspconfig.
 	capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
