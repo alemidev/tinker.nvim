@@ -99,7 +99,7 @@ function KEYBINDS:set_telescope_keys(opts)
 	local theme = require('telescope.themes')
 	-- File navigation
 	vim.keymap.set('n', '<C-ESC>', telescope.oldfiles, opts)
-	vim.keymap.set('n', '<M-ESC>', telescope.oldfiles, opts) -- fallback for windows
+	vim.keymap.set('n', '<M-!>',   telescope.oldfiles, opts) -- fallback for windows... even <M-Esc> is used
 	vim.keymap.set('n', '<C-f>',   telescope.find_files, opts)
 	vim.keymap.set('n', '<M-f>',   telescope.find_files, opts) -- fallback for windows
 	vim.keymap.set('n', '<C-,>',   telescope.live_grep, opts)
