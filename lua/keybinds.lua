@@ -91,6 +91,7 @@ function KEYBINDS:set_lsp_keys(opts)
 	vim.keymap.set('n', '<M-x>', vim.diagnostic.open_float, opts) -- fallback for windows
 	-- It's not really a keybind but whatever
 	vim.api.nvim_create_user_command('Format', ':lua vim.lsp.buf.formatting()<CR>', {}) -- TODO if function is passed directly, it doesn't work!
+	vim.keymap.set('n', '<M-p>', ':ClangdSwitchSourceHeader<CR>', {})
 end
 
 function KEYBINDS:set_telescope_keys(opts)

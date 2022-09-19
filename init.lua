@@ -37,6 +37,7 @@ vim.opt.sessionoptions = "buffers,curdir,localoptions,tabpages,winsize"
 vim.opt.foldlevelstart = 50
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 4
+vim.opt.sidescrolloff = 8
 -- vim.opt.signcolumn = "yes"
 vim.opt.switchbuf = "usetab"
 vim.g.mapleader = "\\"
@@ -68,7 +69,7 @@ vim.g.netrw_browse_split = 2
 vim.g.netrw_winsize = 12
 
 -- Neovide settings
-vim.g.neovide_transparency = 0.8
+vim.g.neovide_transparency = 0.9
 vim.g.neovide_cursor_vfx_mode = "wireframe"
 vim.opt.guifont = { "Fira Code", ":h10" }
 
