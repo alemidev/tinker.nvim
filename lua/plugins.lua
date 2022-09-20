@@ -36,6 +36,7 @@ local init_fn = function(use)
 	use "ellisonleao/glow.nvim"         -- markdown previewer with glow
 
 	use 'tpope/vim-fugitive'            -- better git commands
+	use 'tpope/vim-surround'            -- text object motions for surrounding
 
 	use 'neovim/nvim-lspconfig'         -- import LSP configurations
 	use 'simrat39/rust-tools.nvim'      -- extra LSP defaults for rust
