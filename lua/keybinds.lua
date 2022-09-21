@@ -98,27 +98,27 @@ function KEYBINDS:set_telescope_keys(opts)
 	local telescope = require('telescope.builtin')
 	local theme = require('telescope.themes')
 	-- File navigation
-	vim.keymap.set('n', '<C-ESC>', telescope.oldfiles, opts)
-	vim.keymap.set('n', '<M-!>',   telescope.oldfiles, opts) -- fallback for windows... even <M-Esc> is used
+	vim.keymap.set('n', '<C-ESC>', wrap(telescope.oldfiles, {layout_strategy = 'vertical' }), opts)
+	vim.keymap.set('n', '<M-!>',   wrap(telescope.oldfiles, {layout_strategy = 'vertical' }), opts) -- fallback for windows... even <M-Esc> is used
 	vim.keymap.set('n', '<C-f>',   telescope.find_files, opts)
 	vim.keymap.set('n', '<M-f>',   telescope.find_files, opts) -- fallback for windows
-	vim.keymap.set('n', '<C-,>',   telescope.live_grep, opts)
-	vim.keymap.set('n', '<M-,>',   telescope.live_grep, opts) -- fallback for windows
+	vim.keymap.set('n', '<C-,>',   wrap(telescope.live_grep, {layout_strategy = 'vertical'}), opts)
+	vim.keymap.set('n', '<M-,>',   wrap(telescope.live_grep, {layout_strategy = 'vertical'}), opts) -- fallback for windows
 	vim.keymap.set('n', '<C-[>',   wrap(telescope.lsp_references, theme.get_cursor()), opts)
 	vim.keymap.set('n', '<M-[>',   wrap(telescope.lsp_references, theme.get_cursor()), opts) -- fallback for windows
 	vim.keymap.set('n', '<C-;>',   telescope.git_bcommits, opts)
 	vim.keymap.set('n', '<M-;>',   telescope.git_bcommits, opts) -- fallback for windows
-	vim.keymap.set('n', '<M-=>',   telescope.registers, opts) -- fallback for windows
+	vim.keymap.set('n', '<M-=>',   wrap(telescope.registers, theme.get_dropdown()), opts) -- fallback for windows
 	-- Marks and buffers with telescope
 	vim.keymap.set('n', '<C-End>', telescope.buffers, opts)
 	vim.keymap.set('n', '<C-\'>',  wrap(telescope.marks, theme.get_dropdown()), opts)
 	vim.keymap.set('n', '<M-\'>',  wrap(telescope.marks, theme.get_dropdown()), opts) -- fallback for windows
-	vim.keymap.set('n', '<C-/>',   wrap(telescope.current_buffer_fuzzy_find, theme.get_dropdown()), opts)
-	vim.keymap.set('n', '<M-/>',   wrap(telescope.current_buffer_fuzzy_find, theme.get_dropdown()), opts) -- fallback for windows
+	vim.keymap.set('n', '<C-/>',   wrap(telescope.current_buffer_fuzzy_find, {layout_strategy = 'vertical'}), opts)
+	vim.keymap.set('n', '<M-/>',   wrap(telescope.current_buffer_fuzzy_find, {layout_strategy = 'vertical'}), opts) -- fallback for windows
 	-- Symbols with telescope
 	vim.keymap.set('n', '<C-\\>',  telescope.lsp_document_symbols, opts)
-	vim.keymap.set('n', '<C-CR>',  telescope.lsp_workspace_symbols, opts)
-	vim.keymap.set('n', '<NL>',    telescope.lsp_workspace_symbols, opts) -- fallback for windows
+	vim.keymap.set('n', '<C-CR>',  wrap(telescope.lsp_workspace_symbols, {layout_strategy = 'vertical'}), opts)
+	vim.keymap.set('n', '<NL>',    wrap(telescope.lsp_workspace_symbols, {layout_strategy = 'vertical'}), opts) -- fallback for windows
 	-- Error list with telescope
 	vim.keymap.set('n', '<C-PageUp>', wrap(telescope.diagnostics, theme.get_ivy()), opts)
 	vim.keymap.set('n', '<C-PageDown>', wrap(telescope.diagnostics, theme.get_ivy({bufnr=0})), opts)

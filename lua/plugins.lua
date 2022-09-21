@@ -119,7 +119,24 @@ local init_fn = function(use)
 			{'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }, -- fzf algorithm implemented in C for faster searches
 		},
 		config = function()
-			require('telescope').load_extension('fzf')
+			local telescope = require('telescope')
+			telescope.load_extension('fzf')
+			telescope.setup({
+				defaults = {
+					path_display = { "truncate" },
+					layout_config = {
+						horizontal = {
+							preview_width = 0.65,
+							results_width = 0.7,
+						},
+						vertical = {
+							mirror = false,
+						},
+						height = 0.9,
+						width = 0.9
+					},
+				}
+			})
 			require('keybinds'):set_telescope_keys({})
 		end
 	}
