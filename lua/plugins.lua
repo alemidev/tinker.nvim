@@ -24,6 +24,8 @@
 local init_fn = function(use)
 	use 'wbthomason/packer.nvim'        -- packer can manage itself
 
+	use 'alemidev/peak.nvim'            -- color scheme
+
 	-- trying this thing out
 	use 'lervag/wiki.vim'               -- utilities for managing my wiki
 	use 'lervag/wiki-ft.vim'            -- wiki format syntax

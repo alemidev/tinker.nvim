@@ -134,8 +134,7 @@ PLUGINS = require('plugins')
 
 
 --|| THEME
-PALETTE = require('colors')
-PALETTE:set_colors()
+vim.cmd("colorscheme peak") -- TODO can I do it in lua?
 
 
 --|| UTILITY
