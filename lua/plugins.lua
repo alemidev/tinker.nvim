@@ -127,13 +127,15 @@ local init_fn = function(use)
 					layout_config = {
 						horizontal = {
 							preview_width = 0.65,
-							results_width = 0.7,
+							results_width = 0.35,
 						},
 						vertical = {
 							mirror = false,
 						},
-						height = 0.9,
-						width = 0.9
+						cursor = {
+							preview_width = 0.6,
+							results_width = 0.4,
+						}
 					},
 				}
 			})
