@@ -274,7 +274,7 @@ local init_fn = function(use)
 	lspconfig.bashls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 	lspconfig.pylsp.setup({capabilites = capabilities, on_attach = set_lsp_binds, settings = { pylsp = { plugins = { pycodestyle = { enabled = false } } } } })
 	lspconfig.clangd.setup({capabilities=capabilities, on_attach=set_lsp_binds})
-	lspconfig.marksman.setup({capabilities=capabilities, on_attach=set_lsp_binds})
+	lspconfig.ltex.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 
 	local jdtls_bin_path = os.getenv("JDTLS_BIN_PATH") or "jdtls"
 	local home_path = os.getenv("HOME") or "~" -- TODO this is not windows friendly
