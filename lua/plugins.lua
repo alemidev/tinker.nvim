@@ -142,6 +142,16 @@ local init_fn = function(use)
 				}
 			})
 			require('keybinds'):set_telescope_keys({})
+			-- for some reason, telescope breaks folds!
+			-- this should fix (took it off an issue on github)
+			vim.api.nvim_create_autocmd('BufRead', {
+				callback = function()
+					vim.api.nvim_create_autocmd('BufWinEnter', {
+						once = true,
+						command = 'normal! zx'
+					})
+				end
+			})
 		end
 	}
 
