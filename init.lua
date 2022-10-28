@@ -63,14 +63,15 @@ vim.opt.statusline = "%!v:lua.STATUSLINE.display()"
 
 
 -- Netrw settings
-vim.g.netrw_liststyle = 4
-vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
+-- vim.g.netrw_banner = 0
 vim.g.netrw_browse_split = 2
 vim.g.netrw_winsize = 12
 
 -- Neovide settings
 vim.g.neovide_transparency = 0.9
 vim.g.neovide_cursor_vfx_mode = "wireframe"
+vim.g.neovide_refresh_rate = 120
 vim.opt.guifont = { "Fira Code", ":h10" }
 
 -- Wiki.vim settings
