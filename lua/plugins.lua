@@ -249,7 +249,7 @@ local init_fn = function(use)
 	-- })
 
 	-- Setup lspconfig.
-	capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+	capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 	-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 	local lspconfig = require("lspconfig")
 
