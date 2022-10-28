@@ -170,3 +170,23 @@ vim.api.nvim_create_user_command(
 	end,
 	{bang=true, nargs='?'}
 )
+
+-- since builtin :retab! will expand also alignment spaces,
+--  I made this simple command to use 'unexpand'/'expand'
+vim.api.nvim_create_user_command(
+	'Retab',
+	function(args)
+		local tablen = 4
+		local cmd = "unexpand"
+		local opt = "--first-only"
+		if #args.args > 0 then
+			tablen = args.args
+		end
+		if args.bang then
+			cmd = "expand"
+			opt = "--initial"
+		end
+		vim.cmd(string.format("%%!%s -t %d %s", cmd, tablen, opt))
+	end,
+	{bang=true, nargs='?'}
+)
