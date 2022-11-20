@@ -165,6 +165,7 @@ local init_fn = function(use)
 					delete       = {hl = 'GitSignsDelete', text = '_'},
 					topdelete    = {hl = 'GitSignsDelete', text = '‾'},
 					changedelete = {hl = 'GitSignsDelete', text = '~'},
+					untracked    = {hl = 'GitSignsUntracked', text = '╎'},
 				},
 			}
 		end
