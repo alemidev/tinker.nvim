@@ -105,6 +105,7 @@ function KEYBINDS:set_telescope_keys(opts)
 	vim.keymap.set('n', '<C-,>',   wrap(telescope.live_grep, {layout_strategy = 'vertical'}), opts)
 	vim.keymap.set('n', '<M-,>',   wrap(telescope.live_grep, {layout_strategy = 'vertical'}), opts) -- fallback for windows
 	vim.keymap.set('n', '<M-]>',   wrap(telescope.lsp_references, theme.get_cursor()), opts)
+	vim.keymap.set('n', '<M-[>',   wrap(telescope.jumplist, theme.get_dropdown()), opts)
 	vim.keymap.set('n', '<C-;>',   telescope.git_bcommits, opts)
 	vim.keymap.set('n', '<M-;>',   telescope.git_bcommits, opts) -- fallback for windows
 	vim.keymap.set('n', '<M-=>',   wrap(telescope.registers, theme.get_dropdown()), opts) -- fallback for windows
