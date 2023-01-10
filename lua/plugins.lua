@@ -173,17 +173,19 @@ local init_fn = function(use)
 
 	use {
 		'nvim-treesitter/nvim-treesitter',
-		run = ':TSUpdate',
+		run = ':TSUpdate', -- if parsers break upon install, check under scoop/apps/neovim/{version}/lib/nvim/parser
 		config = function()
-			require('nvim-treesitter.configs').setup {
+			require('nvim-treesitter.configs').setup({
 				highlight = { enable = true },
 				incremental_selection = { enable = true },
 				textobjects = { enable = true }
-			}
+			})
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 		end
 	}
+
+	use 'nvim-treesitter/playground'
 
 	use {
 		'kyazdani42/nvim-tree.lua',     -- tree file explorer, alternative to nerdtree in lua
