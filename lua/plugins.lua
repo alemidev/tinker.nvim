@@ -77,17 +77,34 @@ local init_fn = function(use)
 					type = 'lldb',
 					request = 'launch',
 					program = function()
-						local program = ""
-						for i in string.gmatch(vim.fn.getcwd(), "([^/]+)") do
-							program = i
-						end
-						return vim.fn.getcwd() .. "/target/debug/" .. program -- TODO can I put startup file somewhere?
+						vim.fn.input("run: ", vim.fn.getcwd() .. "/", "command")
 					end,
 					cwd = '${workspaceFolder}',
 				},
 			}
 			dap.configurations.c = dap.configurations.cpp
-			dap.configurations.rust = dap.configurations.cpp
+			dap.configurations.rust = {
+				{
+					name = 'Launch',
+					type = 'lldb',
+					request = 'launch',
+					program = function()
+						local program = ""
+						for i in string.gmatch(vim.fn.getcwd(), "([^/]+)") do -- TODO jank! assumes folder is called just like executable
+							program = i
+						end
+						return vim.fn.getcwd() .. "/target/debug/" .. program -- TODO can I put startup file somewhere?
+					end,
+					cwd = '${workspaceFolder}',
+					args = function()
+						local args = {}
+						for str in string.gmatch(vim.fn.input("args: "), "([^,]+)") do
+							table.insert(args, str)
+						end
+						return args
+					end,
+				},
+			}
 			require('keybinds'):set_dap_keys({})
 			require('dapui').setup()
 		end,
