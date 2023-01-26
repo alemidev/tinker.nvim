@@ -42,6 +42,7 @@ local init_fn = function(use)
 
 	use 'neovim/nvim-lspconfig'         -- import LSP configurations
 	use 'simrat39/rust-tools.nvim'      -- extra LSP defaults for rust
+	use 'mfussenegger/nvim-jdtls'       -- extra LSP stuff for java
 
 	use 'L3MON4D3/LuaSnip'              -- snippet engine
 
