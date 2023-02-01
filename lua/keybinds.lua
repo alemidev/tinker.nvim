@@ -118,8 +118,10 @@ function KEYBINDS:set_telescope_keys(opts)
 	vim.keymap.set('n', '<M-/>',   wrap(telescope.current_buffer_fuzzy_find, {layout_strategy = 'vertical'}), opts) -- fallback for windows
 	-- Symbols with telescope
 	vim.keymap.set('n', '<C-\\>',  telescope.lsp_document_symbols, opts)
-	vim.keymap.set('n', '<C-CR>',  wrap(telescope.lsp_workspace_symbols, {layout_strategy = 'vertical'}), opts)
-	vim.keymap.set('n', '<NL>',    wrap(telescope.lsp_workspace_symbols, {layout_strategy = 'vertical'}), opts) -- fallback for windows
+	vim.keymap.set('n', '<C-|>',   wrap(telescope.lsp_dynamic_workspace_symbols, {layout_strategy = 'vertical'}), opts)
+	-- Resule last
+	vim.keymap.set('n', '<C-CR>',  telescope.resume, opts)
+	vim.keymap.set('n', '<NL>',    telescope.resume, opts) -- fallback for windows
 	-- Error list with telescope
 	vim.keymap.set('n', '<C-PageUp>', wrap(telescope.diagnostics, theme.get_ivy()), opts)
 	vim.keymap.set('n', '<C-PageDown>', wrap(telescope.diagnostics, theme.get_ivy({bufnr=0})), opts)
