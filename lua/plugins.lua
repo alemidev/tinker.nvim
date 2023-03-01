@@ -307,7 +307,7 @@ local init_fn = function(use)
 	lspconfig.clangd.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 	lspconfig.ltex.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 	lspconfig.kotlin_language_server.setup({capabilities=capabilities, on_attach=set_lsp_binds})
-	lspconfig.sumneko_lua.setup({
+	lspconfig.lua_ls.setup({
 		capabilites=capabilities,
 		on_attach=set_lsp_binds,
 		settings = {
