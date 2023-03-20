@@ -15,7 +15,7 @@ vim.api.nvim_create_user_command(
 			local classpath = classpath_raw:gsub("%%5C", "") .. '.jar'
 			local classname = classname_raw:gsub("%%3C", ""):gsub("%(", ".")
 			vim.fn.jobstart(
-				{'javap', '-c', '--class-path', classpath, classname},
+				{'javap', '-p', '-c', '--class-path', classpath, classname},
 				{
 					width = 1024,
 					stdout_buffered = true,
@@ -37,7 +37,6 @@ vim.api.nvim_create_user_command(
 							})
 						else
 							vim.api.nvim_win_set_buf(0, buf)
-							vim.api.nvim_win_set_cursor(buf, { 1, 0 })
 						end
 					end
 				}
