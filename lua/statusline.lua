@@ -88,11 +88,8 @@ function BARCYCLE:combo()
 end
 
 function BARCYCLE:git()
-	if vim.fn['fugitive#Head']() ~= nil then
-		return vim.fn['fugitive#Head']()
-	else
-		return ""
-	end
+	local success, head = pcall(vim.fn['fugitive#Head'])
+	if success then return head else return '' end
 end
 
 function BARCYCLE:lsp()
