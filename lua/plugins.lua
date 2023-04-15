@@ -99,6 +99,9 @@ return {
 					"symbolmap",
 					"diagnostics",
 				},
+				window = {
+					width = 30,
+				}
 			})
 		end
 	},
@@ -177,6 +180,7 @@ return {
 			'folke/neodev.nvim',       -- configure lua lsp with neovim runtime
 		},
 		config = function ()
+			require("neodev").setup({})
 			local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 			local lspconfig = require("lspconfig")
 			lspconfig.bashls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
