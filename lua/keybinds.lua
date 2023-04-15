@@ -40,9 +40,11 @@ function KEYBINDS:set_global_keys(opts)
 	vim.keymap.set('n', '<M-l>', ':set list!<CR>', opts)
 	vim.keymap.set('n', '<M-s>', ':set spell!<CR>', opts)
 	-- Files navigation
-	vim.keymap.set('n', '<C-S-t>', ':tabnew<CR>', opts)
+	vim.keymap.set('n', '<leader><Tab>', ':tabnew<CR>', opts)
 	vim.keymap.set('n', '<M-t>', ':tabnew<CR>', opts) -- fallback for windows
-	vim.keymap.set('n', '<C-t>', ':NvimTreeToggle<CR>', {noremap=true})
+	vim.keymap.set('n', '<C-t>', ':Neotree toggle<CR>', {noremap=true})
+	vim.keymap.set('n', '<C-S-t>', ':Neotree toggle source=symbolmap right<CR>', {noremap=true})
+	vim.keymap.set('n', '<C-h>', vim.cmd.UndotreeToggle, {noremap=true})
 	-- Esc goes back to normal mode in terminal
 	vim.keymap.set('t', '<ESC>', '<C-\\><C-n>', opts)
 
@@ -74,12 +76,12 @@ function KEYBINDS:set_lsp_keys(opts)
 	-- Enable Lsp tagfunc
 	vim.api.nvim_buf_set_option(opts.buffer, 'tagfunc', 'v:lua.vim.lsp.tagfunc')
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-	vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, opts)
-	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-	vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-	vim.keymap.set('n', 'gh', vim.lsp.buf.hover, opts)
+	vim.keymap.set('n', '<leader>D', vim.lsp.buf.declaration, opts)
+	vim.keymap.set('n', '<leader>d', vim.lsp.buf.definition, opts)
+	vim.keymap.set('n', '<leader>y', vim.lsp.buf.type_definition, opts)
+	vim.keymap.set('n', '<leader>i', vim.lsp.buf.implementation, opts)
+	vim.keymap.set('n', '<leader>r', vim.lsp.buf.references, opts)
+	vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover, opts)
 	vim.keymap.set('n', '<C-Space>', vim.lsp.buf.hover, opts)
 	vim.keymap.set('n', '<C-x>', vim.lsp.buf.hover, opts)
 	vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
@@ -87,8 +89,8 @@ function KEYBINDS:set_lsp_keys(opts)
 	-- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
 	vim.keymap.set('n', '<M-r>', vim.lsp.buf.rename, opts)
 	vim.keymap.set('n', '<M-a>', vim.lsp.buf.code_action, opts)
-	vim.keymap.set('n', '<M-f>', vim.lsp.buf.formatting, opts)
-	vim.keymap.set('n', '<C-DEL>', vim.diagnostic.open_float, opts)
+	vim.keymap.set('n', '<leader><Del>', vim.diagnostic.open_float, opts)
+	vim.keymap.set('n', '<C-Del>', vim.diagnostic.open_float, opts)
 	vim.keymap.set('n', '<M-x>', vim.diagnostic.open_float, opts) -- fallback for windows
 	-- It's not really a keybind but whatever
 	vim.api.nvim_create_user_command('Format', ':lua vim.lsp.buf.formatting()<CR>', {}) -- TODO if function is passed directly, it doesn't work!
