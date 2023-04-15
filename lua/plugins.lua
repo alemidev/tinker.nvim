@@ -86,7 +86,7 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
-			"alemidev/neo-tree-symbolmap.git",
+			"alemidev/neo-tree-symbolmap",
 			"mrbjarksen/neo-tree-diagnostics.nvim",
 		},
 		config = function ()
@@ -187,8 +187,8 @@ return {
 			lspconfig.pylsp.setup({capabilites = capabilities, on_attach = set_lsp_binds, settings = { pylsp = { plugins = { pycodestyle = { enabled = false } } } } })
 			lspconfig.clangd.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.ltex.setup({capabilities=capabilities, on_attach=set_lsp_binds})
-			-- lspconfig.kotlin_language_server.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.lua_ls.setup({capabilites=capabilities, on_attach=set_lsp_binds, settings = { Lua = { telemetry = { enable = false }}}}) -- default-on telemetry is never ok ...
+			-- lspconfig.kotlin_language_server.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 		end
 	},
 

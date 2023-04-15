@@ -72,7 +72,7 @@ vim.g.netrw_winsize = 12
 vim.g.neovide_transparency = 0.9
 vim.g.neovide_cursor_vfx_mode = "wireframe"
 vim.g.neovide_refresh_rate = 120
-vim.opt.guifont = { "Fira Code", ":h10" }
+vim.opt.guifont = { "FiraCode Nerd Font Mono", ":h10" }
 
 -- Wiki.vim settings
 vim.g.wiki_root = "~/Documents/wiki"
