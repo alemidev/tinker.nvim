@@ -68,11 +68,23 @@ vim.g.netrw_liststyle = 3
 vim.g.netrw_browse_split = 2
 vim.g.netrw_winsize = 12
 
+vim.o.guifont = "Hack Nerd Font:h8"
+
 -- Neovide settings
-vim.g.neovide_transparency = 0.9
-vim.g.neovide_cursor_vfx_mode = "wireframe"
-vim.g.neovide_refresh_rate = 120
-vim.opt.guifont = { "FiraCode Nerd Font Mono", ":h10" }
+if vim.g.neovide then
+	vim.g.neovide_transparency = 0.9
+	vim.g.neovide_cursor_vfx_mode = "wireframe"
+	vim.g.neovide_refresh_rate = 60
+	vim.g.neovide_scale_factor = 1.0
+	local function update_scale_fn(amount)
+		return function()
+			vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + amount
+			print(string.format("scale: %.1f", vim.g.neovide_scale_factor))
+		end
+	end
+	vim.keymap.set('n', '<C-=>', update_scale_fn(0.1), {noremap=true})
+	vim.keymap.set('n', '<C-->', update_scale_fn(-0.1), {noremap=true})
+end
 
 -- Wiki.vim settings
 vim.g.wiki_root = "~/Documents/wiki"
