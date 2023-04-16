@@ -94,7 +94,20 @@ function KEYBINDS:set_lsp_keys(opts)
 	vim.keymap.set('n', '<C-Del>', vim.diagnostic.open_float, opts)
 	vim.keymap.set('n', '<M-x>', vim.diagnostic.open_float, opts) -- fallback for windows
 	-- It's not really a keybind but whatever
-	vim.api.nvim_create_user_command('Format', ':lua vim.lsp.buf.formatting()<CR>', {}) -- TODO if function is passed directly, it doesn't work!
+	vim.api.nvim_create_user_command(
+		'Format',
+		function(args)
+			if args.range == 0 then
+				vim.lsp.buf.format({ async = args.bang })
+			else
+				local range = {}
+				range['start'] = { args.line1, 0 }
+				range['end']   = { args.line2, 0 }
+				vim.lsp.buf.format({async=not args.bang, range=range})
+			end
+		end,
+		{bang=true, range=2}
+	)
 	vim.keymap.set('n', '<M-p>', ':ClangdSwitchSourceHeader<CR>', {})
 end
 
