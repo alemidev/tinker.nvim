@@ -44,6 +44,7 @@ function KEYBINDS:set_global_keys(opts)
 	vim.keymap.set('n', '<M-t>', ':tabnew<CR>', opts) -- fallback for windows
 	vim.keymap.set('n', '<C-t>', ':Neotree toggle<CR>', {noremap=true})
 	vim.keymap.set('n', '<C-S-t>', ':Neotree toggle source=symbolmap right<CR>', {noremap=true})
+	vim.keymap.set('n', '<C-PageUp>', ':Neotree toggle source=diagnostics bottom<CR>', opts)
 	vim.keymap.set('n', '<C-h>', vim.cmd.UndotreeToggle, {noremap=true})
 	-- Esc goes back to normal mode in terminal
 	vim.keymap.set('t', '<ESC>', '<C-\\><C-n>', opts)
@@ -126,7 +127,6 @@ function KEYBINDS:set_telescope_keys(opts)
 	vim.keymap.set('n', '<C-CR>',  telescope.resume, opts)
 	vim.keymap.set('n', '<M-CR>',  telescope.resume, opts)
 	-- Error list with telescope
-	vim.keymap.set('n', '<C-PageUp>', wrap(telescope.diagnostics, theme.get_ivy()), opts)
 	vim.keymap.set('n', '<C-PageDown>', wrap(telescope.diagnostics, theme.get_ivy({bufnr=0})), opts)
 end
 
