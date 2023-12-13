@@ -50,6 +50,9 @@ vim.opt.winminheight = 3
 vim.opt.winwidth = 12
 vim.opt.winminwidth = 12
 
+vim.opt.ignorecase = true
+vim.opt.smartcase  = true
+
 
 -- Tabline
 -- TODO customize structure to make selected tab use same hi as mode, maybe
