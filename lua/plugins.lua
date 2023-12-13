@@ -41,7 +41,13 @@ return {
 
 	{
 		'norcalli/nvim-colorizer.lua',    -- show hex color codes
-		config = function () require('colorizer').setup() end
+		config = function ()
+			require('colorizer').setup(nil, {
+				names = false,
+				RGB = false,
+				RRGGBBAA = true,
+			})
+		end
 	},
 
 	{
@@ -195,6 +201,9 @@ return {
 			lspconfig.clangd.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.ltex.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.lua_ls.setup({capabilites=capabilities, on_attach=set_lsp_binds, settings = { Lua = { telemetry = { enable = false }}}}) -- default-on telemetry is never ok ...
+			lspconfig.lua_ls.setup({capabilites=capabilities, on_attach=set_lsp_binds, settings = {
+				Lua = { telemetry = { enable = false }, workspace = { checkThirdParty = false }}
+			}}) -- default-on telemetry is never ok ...
 			lspconfig.bufls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.tsserver.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.ruby_ls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
