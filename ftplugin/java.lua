@@ -1,11 +1,12 @@
 local nvim_jdtls = require("jdtls")
 nvim_jdtls.start_or_attach({
 	cmd = { 'jdtls' },
-	root_dir = vim.fs.dirname(vim.fs.find({'.gradlew', '.git', 'mvnw'}, {upward = true})[1]),
+	root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'}),
 })
 require('keybinds'):set_lsp_keys({buffer = 0})
 
 -- Allow decompiling classes coming from the language server too
+-- TODO should probably move elsewhere
 vim.api.nvim_create_user_command(
 	'Javap',
 	function(args)
