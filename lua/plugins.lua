@@ -67,12 +67,10 @@ return {
 
 	{
 		'nvim-treesitter/nvim-treesitter',
-		build = ':TSUpdate', -- if parsers break upon install, check under scoop/apps/neovim/{version}/lib/nvim/parser
+		build = ':TSUpdate', -- if on windows and parsers break upon install, check under scoop/apps/neovim/{version}/lib/nvim/parser
 		config = function()
 			require('nvim-treesitter.configs').setup({
 				highlight = { enable = true },
-				incremental_selection = { enable = true },
-				textobjects = { enable = true }
 			})
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -81,12 +79,12 @@ return {
 
 	{
 		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v2.x",
+		branch = "v3.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
-			"alemidev/neo-tree-symbolmap",
+			{ url = "https://git.alemi.dev/neo-tree-symbolmap" },
 			"mrbjarksen/neo-tree-diagnostics.nvim",
 		},
 		config = function ()
@@ -147,7 +145,9 @@ return {
 		end
 	},
 
-	'mfussenegger/nvim-jdtls',       -- extra LSP stuff for java
+	{
+		'mfussenegger/nvim-jdtls',       -- extra LSP stuff for java
+	},
 
 	{
 		'simrat39/rust-tools.nvim',      -- extra LSP defaults for rust
@@ -165,6 +165,11 @@ return {
 				server = {
 					capabilities = capabilities,
 					on_attach = set_lsp_binds,
+					settings = {
+						['rust-analyzer'] = {
+							checkOnSave = { command = "clippy" },
+						}
+					}
 				},
 				dap = { adapter = require('dap').adapters.lldb },
 			})
@@ -181,13 +186,21 @@ return {
 		},
 		config = function ()
 			require("neodev").setup({})
-			local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			local core_capabilities = vim.lsp.protocol.make_client_capabilities()
+			local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities(core_capabilities)
+			local capabilities = vim.tbl_deep_extend('force', core_capabilities, cmp_capabilities)
 			local lspconfig = require("lspconfig")
 			lspconfig.bashls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.pylsp.setup({capabilites = capabilities, on_attach = set_lsp_binds, settings = { pylsp = { plugins = { pycodestyle = { enabled = false } } } } })
 			lspconfig.clangd.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.ltex.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.lua_ls.setup({capabilites=capabilities, on_attach=set_lsp_binds, settings = { Lua = { telemetry = { enable = false }}}}) -- default-on telemetry is never ok ...
+			lspconfig.bufls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
+			lspconfig.tsserver.setup({capabilities=capabilities, on_attach=set_lsp_binds})
+			lspconfig.ruby_ls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
+			lspconfig.elixirls.setup({capabilites=capabilites, on_attach=set_lsp_binds, cmd= {"/usr/bin/elixir-ls"}})
+			-- lspconfig.rust_analyzer.setup({capabilities=capabilities, on_attach=set_lsp_binds, settings = { ['rust-analyzer'] = { checkOnSave = { command = "clippy"}}}})
+			-- lspconfig.java_language_server.setup({capabilities=capabilities, on_attach=set_lsp_binds, cmd = { '/home/alemi/dev/software/java-language-server/dist/lang_server_linux.sh' }})
 			-- lspconfig.kotlin_language_server.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 		end
 	},
