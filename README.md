@@ -1,8 +1,10 @@
 # tinker.nvim
 > a simple but complete neovim config for those who cannot stop tinkering
 
+![example picture](https://cdn.alemi.dev/proj/tinker.nvim/demo.png)
+
 ### demo
-![config demo gif](https://cdn.alemi.dev/proj/tinker.nvim/demo.gif)
+ * [completions, diagnostics and file tree](https://cdn.alemi.dev/proj/tinker.nvim/demo-completion-tree.mp4)
 
 ## installation
 just `git clone https://git.alemi.dev/tinker.nvim nvim` inside your `.config` dir
