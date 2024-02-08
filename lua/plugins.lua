@@ -199,15 +199,14 @@ return {
 			lspconfig.bashls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.pylsp.setup({capabilites = capabilities, on_attach = set_lsp_binds, settings = { pylsp = { plugins = { pycodestyle = { enabled = false } } } } })
 			lspconfig.clangd.setup({capabilities=capabilities, on_attach=set_lsp_binds})
-			lspconfig.ltex.setup({capabilities=capabilities, on_attach=set_lsp_binds})
-			lspconfig.lua_ls.setup({capabilites=capabilities, on_attach=set_lsp_binds, settings = { Lua = { telemetry = { enable = false }}}}) -- default-on telemetry is never ok ...
+			lspconfig.ltex.setup({capabilities=capabilities, on_attach=set_lsp_binds, debounce_text_changes = 300, settings = { ltex = { language = "it-IT" }}})
 			lspconfig.lua_ls.setup({capabilites=capabilities, on_attach=set_lsp_binds, settings = {
 				Lua = { telemetry = { enable = false }, workspace = { checkThirdParty = false }}
 			}}) -- default-on telemetry is never ok ...
 			lspconfig.bufls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.tsserver.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.ruby_ls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
-			lspconfig.elixirls.setup({capabilites=capabilites, on_attach=set_lsp_binds, cmd= {"/usr/bin/elixir-ls"}})
+			lspconfig.elixirls.setup({capabilites=capabilities, on_attach=set_lsp_binds, cmd= {"/usr/bin/elixir-ls"}})
 			-- lspconfig.rust_analyzer.setup({capabilities=capabilities, on_attach=set_lsp_binds, settings = { ['rust-analyzer'] = { checkOnSave = { command = "clippy"}}}})
 			-- lspconfig.java_language_server.setup({capabilities=capabilities, on_attach=set_lsp_binds, cmd = { '/home/alemi/dev/software/java-language-server/dist/lang_server_linux.sh' }})
 			-- lspconfig.kotlin_language_server.setup({capabilities=capabilities, on_attach=set_lsp_binds})
