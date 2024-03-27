@@ -90,7 +90,7 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
-			{ url = "https://git.alemi.dev/neo-tree-symbolmap" },
+			{ url = "https://git.alemi.dev/neo-tree-symbolmap.git" },
 			"mrbjarksen/neo-tree-diagnostics.nvim",
 		},
 		config = function ()
