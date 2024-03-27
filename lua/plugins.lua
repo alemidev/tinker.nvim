@@ -216,7 +216,8 @@ return {
 	{
 		'mfussenegger/nvim-dap',        -- debugger adapter protocol
 		dependencies = {
-			'rcarriga/nvim-dap-ui',     --batteries-included debugger ui
+			'rcarriga/nvim-dap-ui',     -- batteries-included debugger ui
+			'nvim-neotest/nvim-nio',    -- explicit dependency
 		},
 		config = function()
 			local dap = require('dap')
