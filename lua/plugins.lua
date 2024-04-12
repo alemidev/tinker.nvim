@@ -205,6 +205,7 @@ return {
 			}}) -- default-on telemetry is never ok ...
 			lspconfig.bufls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.tsserver.setup({capabilities=capabilities, on_attach=set_lsp_binds})
+			lspconfig.html.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.ruby_ls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.elixirls.setup({capabilites=capabilities, on_attach=set_lsp_binds, cmd= {"/usr/bin/elixir-ls"}})
 			-- lspconfig.rust_analyzer.setup({capabilities=capabilities, on_attach=set_lsp_binds, settings = { ['rust-analyzer'] = { checkOnSave = { command = "clippy"}}}})
