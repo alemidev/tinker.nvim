@@ -208,6 +208,7 @@ return {
 			lspconfig.html.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.ruby_ls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.elixirls.setup({capabilites=capabilities, on_attach=set_lsp_binds, cmd= {"/usr/bin/elixir-ls"}})
+			lspconfig.gopls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			-- lspconfig.rust_analyzer.setup({capabilities=capabilities, on_attach=set_lsp_binds, settings = { ['rust-analyzer'] = { checkOnSave = { command = "clippy"}}}})
 			-- lspconfig.java_language_server.setup({capabilities=capabilities, on_attach=set_lsp_binds, cmd = { '/home/alemi/dev/software/java-language-server/dist/lang_server_linux.sh' }})
 			-- lspconfig.kotlin_language_server.setup({capabilities=capabilities, on_attach=set_lsp_binds})
