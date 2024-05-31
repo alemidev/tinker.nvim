@@ -161,6 +161,7 @@ require('lazy').setup(PLUGINS)
 --|| THEME
 vim.cmd("colorscheme peak") -- TODO can I do it in lua?
 
+vim.lsp.inlay_hint.enable(true) -- default on
 
 --|| UTILITY
 function P(something) print(vim.inspect(something)) end

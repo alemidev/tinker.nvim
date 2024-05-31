@@ -15,10 +15,10 @@
  PPPPPPPPPPPPGBPG&&&       &&&&&&###BBBGGGGGGGBB##&&                                 - pickers: telescope.nvim            
  &BGPPPPPPPPPPPPPPGGGGGGGGGGGGGGGGGGGBBB##&&&                                        - files: neo-tree.nvim               
     &&##BBBBGGGGGGGPGBBBBBB####&&&&                                                  - git: vim-fugitive + gitsigns.nvim  
-                  &#B#&                                                              - extra: hexmode, vim-combo,         
-               &&    ###&                                                                     rust-tools, nvim-colorizer, 
-              &G#      &&#&&&                                                                 nvim-jdtls, vim-surround,   
-                             &&&                                                              undotree,                   
+                  &#B#&                                                              - extra: hexmode, vim-surround,      
+               &&    ###&                                                                     undotree, nvim-colorizer,   
+              &G#      &&#&&&                                                                 nvim-jdtls, rustaceanvim,   
+                             &&&                                                              vim-combo,                  
 ]]--
 
 local function set_lsp_binds(_, bufnr)
@@ -156,32 +156,18 @@ return {
 	},
 
 	{
-		'simrat39/rust-tools.nvim',      -- extra LSP defaults for rust
-		dependencies = {
-			'hrsh7th/nvim-cmp',          -- referenced here to guarantee load order
-		},
 		config = function ()
-			local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-			local rust_tools = require("rust-tools")
-			rust_tools.setup({
-				tools = {
-					inlay_hints = { auto = true, highlight = "InlayHint" },
-					hover_actions = { border = "none" },
-				},
+	{
+		'mrcjkb/rustaceanvim',
+		init = function ()
+			vim.g.rustaceanvim = {
 				server = {
-					capabilities = capabilities,
+					capabilites = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 					on_attach = set_lsp_binds,
-					settings = {
-						['rust-analyzer'] = {
-							checkOnSave = { command = "clippy" },
-						}
-					}
 				},
-				dap = { adapter = require('dap').adapters.lldb },
-			})
-			rust_tools.inlay_hints.enable()
-
-		end
+			}
+		end,
+		lazy = false,
 	},
 
 	{
