@@ -60,12 +60,12 @@ return {
 		config = function()
 			require('gitsigns').setup {   -- configure symbols and colors
 				signs = {
-					add          = {hl = 'GitSignsChange', text = '╎'},
-					change       = {hl = 'GitSignsChange', text = '│'},
-					delete       = {hl = 'GitSignsDelete', text = '_'},
-					topdelete    = {hl = 'GitSignsDelete', text = '‾'},
-					changedelete = {hl = 'GitSignsDelete', text = '~'},
-					untracked    = {hl = 'GitSignsUntracked', text = '╎'},
+					add          = { text = '╎'},
+					change       = { text = '│'},
+					delete       = { text = '_'},
+					topdelete    = { text = '‾'},
+					changedelete = { text = '~'},
+					untracked    = { text = '╎'},
 				},
 			}
 		end
