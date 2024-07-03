@@ -157,8 +157,6 @@ return {
 	},
 
 	{
-		config = function ()
-	{
 		'mrcjkb/rustaceanvim',
 		init = function ()
 			vim.g.rustaceanvim = {
