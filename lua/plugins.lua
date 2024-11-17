@@ -188,8 +188,8 @@ return {
 			lspconfig.lua_ls.setup({capabilites=capabilities, on_attach=set_lsp_binds, settings = {
 				Lua = { telemetry = { enable = false }, workspace = { checkThirdParty = false }}
 			}}) -- default-on telemetry is never ok ...
-			lspconfig.bufls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
-			lspconfig.tsserver.setup({capabilities=capabilities, on_attach=set_lsp_binds})
+			lspconfig.buf_ls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
+			lspconfig.ts_ls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.html.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.ruby_lsp.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.elixirls.setup({capabilites=capabilities, on_attach=set_lsp_binds, cmd= {"/usr/bin/elixir-ls"}})
