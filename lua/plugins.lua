@@ -77,9 +77,20 @@ return {
 		config = function()
 			require('nvim-treesitter.configs').setup({
 				highlight = { enable = true },
+				indent = { enable = true },
 			})
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+		end
+	},
+
+	{
+		'nvim-treesitter/nvim-treesitter',
+		config = function ()
+			require('treesitter-context').setup({
+				multiwindow = true,
+				min_window_height = 10,
+			})
 		end
 	},
 
