@@ -99,7 +99,7 @@ function KEYBINDS:set_lsp_keys(opts)
 	vim.keymap.set('n', '<M-a>', vim.lsp.buf.code_action, opts)
 	vim.keymap.set('n', '<leader><Del>', vim.diagnostic.open_float, opts)
 	vim.keymap.set('n', '<C-Del>', vim.diagnostic.open_float, opts)
-	vim.keymap.set('n', '<M-x>', vim.diagnostic.open_float, opts) -- fallback for windows
+	vim.keymap.set('n', '<C-BS> ', vim.diagnostic.open_float, opts) -- fallback for windows
 	-- It's not really a keybind but whatever
 	vim.api.nvim_create_user_command(
 		'Format',
@@ -123,10 +123,10 @@ function KEYBINDS:set_telescope_keys(opts)
 	local theme = require('telescope.themes')
 
 	vim.keymap.set('n', '<leader>p', telescope.find_files, opts)
-	vim.keymap.set('n', '<leader>', wrap(telescope.lsp_dynamic_workspace_symbols, {layout_strategy = 'vertical'}), opts)
+	vim.keymap.set('n', '<leader>s', wrap(telescope.lsp_dynamic_workspace_symbols, {layout_strategy = 'vertical'}), opts)
 	vim.keymap.set('n', '<leader>/', wrap(telescope.live_grep, {layout_strategy = 'vertical'}), opts)
-	vim.keymap.set('n', '<leader>]', wrap(telescope.lsp_references, theme.get_dropdown()), opts)
-	vim.keymap.set('n', '<leader>r', wrap(telescope.lsp_references, theme.get_dropdown()), opts) -- overrule lsp bind
+	vim.keymap.set('n', '<leader>]', wrap(telescope.lsp_references, {layout_strategy = 'vertical'}), opts)
+	vim.keymap.set('n', '<leader>r', wrap(telescope.lsp_references, {layout_strategy = 'vertical'}), opts) -- overrule lsp bind
 	vim.keymap.set('n', '<leader>;', telescope.git_bcommits, opts)
 
 	if not vim.g.disable_legacy_keybinds then
