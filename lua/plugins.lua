@@ -32,6 +32,18 @@ return {
 	'fidian/hexmode',                -- convert buffers into hex view with xxd
 	'alemidev/vim-combo',            -- track code combos
 
+	{
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+			},
+		},
+	},
+
 	'tpope/vim-fugitive',            -- better git commands
 	'tpope/vim-surround',            -- text object motions for surrounding
 
@@ -216,10 +228,8 @@ return {
 		'neovim/nvim-lspconfig',       -- import LSP configurations
 		dependencies = {
 			'hrsh7th/nvim-cmp',        -- referenced here to guarantee load order
-			'folke/neodev.nvim',       -- configure lua lsp with neovim runtime
 		},
 		config = function ()
-			require("neodev").setup({})
 			local core_capabilities = vim.lsp.protocol.make_client_capabilities()
 			local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities(core_capabilities)
 			local capabilities = vim.tbl_deep_extend('force', core_capabilities, cmp_capabilities)
