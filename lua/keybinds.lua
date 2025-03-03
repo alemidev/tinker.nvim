@@ -209,12 +209,12 @@ function KEYBINDS:set_dap_keys(opts)
 	-- dapui
 	local dap = require('dap')
 	local dapui = require('dapui')
-	vim.keymap.set('n', '<F2>' , function() dapui.toggle({}) end, {})
-	vim.keymap.set('n', '<F3>' , function() dap.toggle_breakpoint() end, {})
-	vim.keymap.set('n', '<F5>' , function() dap.continue() end, {})
-	vim.keymap.set('n', '<F10>', function() dap.step_over() end, {})
-	vim.keymap.set('n', '<F11>', function() dap.step_into() end, {})
-	vim.keymap.set('n', '<F12>', function() dap.step_out() end, {})
+	vim.keymap.set('n', '<F11>' , function() dapui.toggle({}) end, {})
+	vim.keymap.set('n', '<leader>b' , function() dap.toggle_breakpoint() end, {})
+	vim.keymap.set('n', '<leader>c' , function() dap.continue() end, {})
+	vim.keymap.set('n', '<leader>o', function() dap.step_over() end, {})
+	vim.keymap.set('n', '<leader>i', function() dap.step_into() end, {})
+	vim.keymap.set('n', '<leader>O', function() dap.step_out() end, {})
 end
 
 return KEYBINDS
