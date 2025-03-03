@@ -39,7 +39,7 @@ vim.opt.termguicolors = true
 vim.opt.scrolloff = 4
 vim.opt.sidescrolloff = 8
 -- vim.opt.signcolumn = "yes"
-vim.opt.switchbuf = "usetab"
+vim.opt.switchbuf = "uselast,usetab,newtab"
 vim.g.mapleader = "\\"
 
 vim.opt.list = true            -- always show whitespace chars
