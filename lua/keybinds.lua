@@ -70,6 +70,9 @@ function KEYBINDS:set_navigation_keys(opts)
 	vim.keymap.set('n', '<M-Down>', ':resize -1<CR>', opts)
 	vim.keymap.set('n', '<M-Right>', ':vertical resize +1<CR>', opts)
 	vim.keymap.set('n', '<M-Left>', ':vertical resize -1<CR>', opts)
+local function toggle_inlay_hints()
+	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+	print("[*] inlay hints " .. (vim.lsp.inlay_hint.is_enabled() and "ON" or "OFF"))
 end
 
 function KEYBINDS:set_lsp_keys(opts)
@@ -88,7 +91,7 @@ function KEYBINDS:set_lsp_keys(opts)
 	vim.keymap.set('n', '<M-q>', vim.lsp.buf.signature_help, opts)
 	vim.keymap.set('n', '<C-Space>', vim.lsp.buf.hover, opts)
 	vim.keymap.set('n', '<C-x>', vim.lsp.buf.hover, opts)
-	vim.keymap.set('n', '<leader>H', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
+	vim.keymap.set('n', '<leader>H', toggle_inlay_hints)
 	-- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
 	-- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
 	vim.keymap.set('n', '<M-r>', vim.lsp.buf.rename, opts)
@@ -96,7 +99,6 @@ function KEYBINDS:set_lsp_keys(opts)
 	vim.keymap.set('n', '<leader><Del>', vim.diagnostic.open_float, opts)
 	vim.keymap.set('n', '<C-Del>', vim.diagnostic.open_float, opts)
 	vim.keymap.set('n', '<M-x>', vim.diagnostic.open_float, opts) -- fallback for windows
-	vim.keymap.set('n', '<C-h>', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 	-- It's not really a keybind but whatever
 	vim.api.nvim_create_user_command(
 		'Format',
