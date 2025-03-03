@@ -200,6 +200,7 @@ return {
 			local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities(core_capabilities)
 			local capabilities = vim.tbl_deep_extend('force', core_capabilities, cmp_capabilities)
 			local lspconfig = require("lspconfig")
+			lspconfig.intelephense.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.bashls.setup({capabilities=capabilities, on_attach=set_lsp_binds})
 			lspconfig.pylsp.setup({capabilites = capabilities, on_attach = set_lsp_binds, settings = { pylsp = { plugins = { pycodestyle = { enabled = false } } } } })
 			lspconfig.clangd.setup({capabilities=capabilities, on_attach=set_lsp_binds})
