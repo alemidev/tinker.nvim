@@ -92,6 +92,10 @@ function BARCYCLE:git()
 	if success then return head else return '' end
 end
 
+function BARCYCLE:context()
+	return require('nvim-treesitter').statusline() or ''
+end
+
 function BARCYCLE:lsp()
 	local clients = vim.lsp.buf_get_clients(0)
 	if #clients > 0 then
@@ -116,7 +120,8 @@ function BARCYCLE:statusline()
 		self:git(),
 		"%r%h%w%m %<%F ", -- file flags (RO, HELP, PREVIEW, MODIFY), file path
 		"%=", -- change alignment
-		-- self:lsp(),
+		self:lsp(),
+		-- self:context(),
 		"%{&fileencoding?&fileencoding:&encoding}",
 		"%{&fileformat}",
 		"%#StatusLineBlock# %3l:%-3c %3p%%", -- cursor coordinates: line (formatted), column (formatted), percentage (formatted)
