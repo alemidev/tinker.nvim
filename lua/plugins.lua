@@ -51,6 +51,12 @@ return {
 	},
 
 	{
+		"hexedtech/codemp-nvim",
+		opts = {
+			neo_tree = true,
+		},
+	},
+	{
 		"ellisonleao/glow.nvim",          -- markdown previewer with glow
 		config = function() require("glow").setup() end
 	},
@@ -101,6 +107,7 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
+			"hexedtech/codemp-nvim",
 			{ url = "https://git.alemi.dev/neo-tree-symbolmap.git" },
 			"mrbjarksen/neo-tree-diagnostics.nvim",
 		},
@@ -114,6 +121,7 @@ return {
 					"git_status",
 					"symbolmap",
 					"diagnostics",
+					"codemp.neo-tree",
 				},
 				window = {
 					width = 30,
