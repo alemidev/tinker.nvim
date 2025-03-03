@@ -224,10 +224,12 @@ return {
 	{
 		'mfussenegger/nvim-dap',        -- debugger adapter protocol
 		dependencies = {
-			'rcarriga/nvim-dap-ui',     -- batteries-included debugger ui
-			'nvim-neotest/nvim-nio',    -- explicit dependency
+			'rcarriga/nvim-dap-ui',            -- batteries-included debugger ui
+			'theHamsta/nvim-dap-virtual-text', -- adds virtual text to show variable values
+			'nvim-neotest/nvim-nio',           -- explicit dependency
 		},
 		config = function()
+			require("nvim-dap-virtual-text").setup()
 			local dap = require('dap')
 			dap.adapters.python = {
 				type = 'executable',
