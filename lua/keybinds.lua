@@ -58,6 +58,20 @@ function KEYBINDS:set_global_keys(opts)
 		end
 		self.foldcolumn = not self.foldcolumn
 	end)
+
+	-- macos keys, goddammit apple...
+	for _, mode in ipairs({ "n", "i", "v", "x" }) do
+		vim.keymap.set(mode, '<D-d>', '<C-d>', opts)
+		vim.keymap.set(mode, '<D-u>', '<C-u>', opts)
+		vim.keymap.set(mode, '<D-r>', '<C-r>', opts)
+		vim.keymap.set(mode, '<D-v>', '<c-v>', opts)
+		vim.keymap.set(mode, '<D-o>', '<c-o>', opts)
+		vim.keymap.set(mode, '<D-i>', '<c-i>', opts)
+		vim.keymap.set(mode, '<D-]>', '<c-]>', opts)
+		vim.keymap.set(mode, '<D-[>', '<c-[>', opts)
+		vim.keymap.set(mode, '<D-w>', '<C-w>', opts)
+		vim.keymap.set(mode, '<D-PageUp>', ':Neotree toggle source=diagnostics bottom<CR>', opts)
+	end
 end
 
 function KEYBINDS:set_navigation_keys(opts)
@@ -70,6 +84,11 @@ function KEYBINDS:set_navigation_keys(opts)
 	vim.keymap.set('n', '<M-Down>', ':resize -1<CR>', opts)
 	vim.keymap.set('n', '<M-Right>', ':vertical resize +1<CR>', opts)
 	vim.keymap.set('n', '<M-Left>', ':vertical resize -1<CR>', opts)
+	-- macos keys, goddammit apple...
+	vim.keymap.set('n', '<D-Up>', '<C-y>', opts)
+	vim.keymap.set('n', '<D-Down>', '<C-e>', opts)
+end
+
 local function toggle_inlay_hints()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 	print("[*] inlay hints " .. (vim.lsp.inlay_hint.is_enabled() and "ON" or "OFF"))
@@ -116,6 +135,12 @@ function KEYBINDS:set_lsp_keys(opts)
 		{bang=true, range=2}
 	)
 	vim.keymap.set('n', '<M-p>', ':ClangdSwitchSourceHeader<CR>', {})
+	vim.keymap.set('n', '<D-a>', vim.lsp.buf.code_action, opts)
+	vim.keymap.set('n', '<D-Space>', vim.lsp.buf.hover, opts)
+	vim.keymap.set('n', '<D-x>', vim.lsp.buf.hover, opts)
+	vim.keymap.set('n', '<D-Del>', vim.diagnostic.open_float, opts)
+	vim.keymap.set('n', '<D-BS>', vim.diagnostic.open_float, opts)
+	vim.keymap.set('n', '<D-h>', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 end
 
 function KEYBINDS:set_telescope_keys(opts)
@@ -165,6 +190,19 @@ function KEYBINDS:set_telescope_keys(opts)
 		-- Error list with telescope
 		vim.keymap.set('n', '<C-PageDown>', wrap(telescope.diagnostics, theme.get_ivy({bufnr=0})), opts)
 	end
+	-- macos keys, goddammit apple...
+	vim.keymap.set('n', '<D-ESC>', wrap(telescope.oldfiles, {layout_strategy = 'vertical' }), opts)
+	vim.keymap.set('n', '<D-f>',   telescope.find_files, opts)
+	vim.keymap.set('n', '<D-,>',   wrap(telescope.live_grep, {layout_strategy = 'vertical'}), opts)
+	vim.keymap.set('n', '<D-,>',   wrap(telescope.live_grep, {layout_strategy = 'vertical'}), opts)
+	vim.keymap.set('n', '<D-;>',   telescope.git_bcommits, opts)
+	vim.keymap.set('n', '<D-End>', telescope.buffers, opts)
+	vim.keymap.set('n', '<D-\'>',  wrap(telescope.marks, theme.get_dropdown()), opts)
+	vim.keymap.set('n', '<D-/>',   wrap(telescope.current_buffer_fuzzy_find, {layout_strategy = 'vertical'}), opts)
+	vim.keymap.set('n', '<D-\\>',  telescope.lsp_document_symbols, opts)
+	vim.keymap.set('n', '<D-|>',   wrap(telescope.lsp_dynamic_workspace_symbols, {layout_strategy = 'vertical'}), opts)
+	vim.keymap.set('n', '<D-CR>',  telescope.resume, opts)
+	vim.keymap.set('n', '<D-PageDown>', wrap(telescope.diagnostics, theme.get_ivy({bufnr=0})), opts)
 end
 
 function KEYBINDS:set_dap_keys(opts)
