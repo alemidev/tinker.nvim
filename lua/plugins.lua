@@ -189,6 +189,30 @@ return {
 	},
 
 	{
+		'saecki/crates.nvim',
+		event = { "BufRead Cargo.toml" },
+		-- tag = 'stable',
+		config = function()
+			require('crates').setup({
+				lsp = {
+					enabled = true,
+					on_attach = function(client, bufnr)
+						-- the same on_attach function as for your other lsp's
+					end,
+					actions = true,
+					completion = true,
+					hover = true,
+				},
+				completion = {
+					cmp = {
+						enabled = true,
+					},
+				},
+			})
+		end,
+	},
+
+	{
 		'neovim/nvim-lspconfig',       -- import LSP configurations
 		dependencies = {
 			'hrsh7th/nvim-cmp',        -- referenced here to guarantee load order
