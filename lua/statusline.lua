@@ -97,7 +97,7 @@ function BARCYCLE:context()
 end
 
 function BARCYCLE:lsp()
-	local clients = vim.lsp.buf_get_clients(0)
+	local clients = vim.lsp.get_clients({bufnr = 0})
 	if #clients > 0 then
 		local client_names = {}
 		for _, client in pairs(clients) do
