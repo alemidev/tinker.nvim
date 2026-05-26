@@ -172,10 +172,6 @@ return {
 	},
 
 	{
-		'mfussenegger/nvim-jdtls',       -- extra LSP stuff for java
-	},
-
-	{
 		'mrcjkb/rustaceanvim',
 		init = function ()
 			vim.g.rustaceanvim = {
@@ -227,10 +223,14 @@ return {
 			local lsp_config = require('lsp-config')
 			for _, server in pairs(lsp_config) do
 				local config = vim.tbl_deep_extend('force', server.config or {}, capabilities_keybinds_config)
-				vim.lsp.enable(server.name)
 				vim.lsp.config(server.name, config)
+				vim.lsp.enable(server.name)
 			end
 		end
+	},
+
+	{
+		'mfussenegger/nvim-jdtls',       -- extra LSP stuff for java
 	},
 
 	{

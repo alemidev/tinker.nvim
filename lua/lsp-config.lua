@@ -14,6 +14,22 @@ return {
 	-- { name = 'rust_analyzer', config = { settings = { ['rust-analyzer'] = { checkOnSave = { command = "clippy" } } } } },
 	-- { name = 'java_language_server', config = { cmd = { '/home/alemi/dev/software/java-language-server/dist/lang_server_linux.sh' } } },
 	-- { name = 'kotlin_language_server' },
+	-- {
+	-- 	name = "jdtls",
+	-- 	config = {
+	-- 		settings = {
+	-- 			java = {
+	-- 				compile = {
+	-- 					nullAnalysis = {
+	-- 						nonnull = 'javax.annotation.Nonnull',
+	-- 						nullable = 'javax.annotation.Nullable',
+	-- 						mode = "interactive"
+	-- 					}
+	-- 				}
+	-- 			}
+	-- 		}
+	-- 	}
+	-- },
 	{
 		name = 'lua_ls',
 		config = {

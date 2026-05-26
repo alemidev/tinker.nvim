@@ -1,8 +1,27 @@
-local nvim_jdtls = require("jdtls")
-nvim_jdtls.start_or_attach({
-	cmd = { 'jdtls' },
-	root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'}),
-})
+local config = {
+	name = "jdtls",
+
+	cmd = {"jdtls"},
+
+	root_dir = vim.fs.root(0, {'gradlew', '.git', 'mvnw'}),
+
+	settings = {
+		java = {
+			compile = {
+				nullAnalysis = {
+					nonnull = 'javax.annotation.Nonnull',
+					nullable = 'javax.annotation.Nullable',
+					mode = "automatic"
+				}
+			}
+		}
+	},
+
+	init_options = {
+		bundles = {}
+	},
+}
+require('jdtls').start_or_attach(config)
 require('keybinds'):set_lsp_keys({buffer = 0})
 
 -- Allow decompiling classes coming from the language server too
