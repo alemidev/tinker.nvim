@@ -81,7 +81,7 @@ return {
 		'nvim-treesitter/nvim-treesitter',
 		build = ':TSUpdate', -- if on windows and parsers break upon install, check under scoop/apps/neovim/{version}/lib/nvim/parser
 		config = function()
-			require('nvim-treesitter.configs').setup({
+			require('nvim-treesitter.config').setup({
 				highlight = { enable = true },
 				indent = { enable = true },
 			})
