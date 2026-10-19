@@ -215,3 +215,9 @@ vim.api.nvim_create_user_command(
 	end,
 	{bang=true, nargs='?'}
 )
+
+vim.api.nvim_create_autocmd('FileType', {
+	callback = function(args)
+		pcall(vim.treesitter.start, args.buf)
+	end,
+})
