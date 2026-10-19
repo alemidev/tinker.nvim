@@ -40,7 +40,7 @@ vim.opt.scrolloff = 4
 vim.opt.sidescrolloff = 8
 -- vim.opt.signcolumn = "yes"
 vim.opt.switchbuf = "uselast,usetab,newtab"
-vim.g.mapleader = "\\"
+vim.g.mapleader = " "
 
 vim.opt.list = true            -- always show whitespace chars
 vim.opt.listchars = "tab:│ ,space:·,trail:•,nbsp:▭,precedes:◀,extends:▶"

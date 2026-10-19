@@ -40,6 +40,18 @@ return {
 	"stevearc/dressing.nvim",        -- better vim.fn.input() and vim.fn.select()
 
 	{
+		"nosduco/remote-sshfs.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+		opts = {
+			handlers = {
+				on_disconnect = {
+					clean_mount_folders = true,
+				},
+			},
+		},
+	},
+
+	{
 		'norcalli/nvim-colorizer.lua',    -- show hex color codes
 		config = function ()
 			require('colorizer').setup(nil, {

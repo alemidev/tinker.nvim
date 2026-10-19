@@ -43,6 +43,7 @@ function KEYBINDS:set_global_keys(opts)
 	vim.keymap.set('n', '<leader><Tab>', ':tabnew<CR>', opts)
 	vim.keymap.set('n', '<M-t>', ':tabnew<CR>', opts) -- fallback for windows
 	vim.keymap.set('n', '<C-t>', ':Neotree toggle<CR>', {noremap=true})
+	vim.keymap.set('n', '<leader>e', ':Neotree toggle<CR>', {noremap=true})
 	vim.keymap.set('n', '<C-S-t>', ':Neotree toggle source=symbolmap right<CR>', {noremap=true})
 	vim.keymap.set('n', '<M-S-t>', ':Neotree toggle source=symbolmap right<CR>', {noremap=true})
 	vim.keymap.set('n', '<C-PageUp>', ':Neotree toggle source=diagnostics bottom<CR>', opts)
@@ -100,25 +101,20 @@ function KEYBINDS:set_lsp_keys(opts)
 	-- Enable Lsp tagfunc
 	vim.api.nvim_buf_set_option(opts.buffer, 'tagfunc', 'v:lua.vim.lsp.tagfunc')
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	vim.keymap.set('n', '<leader>D', vim.lsp.buf.declaration, opts)
-	vim.keymap.set('n', '<leader>d', vim.lsp.buf.definition, opts)
-	vim.keymap.set('n', '<leader>y', vim.lsp.buf.type_definition, opts)
-	vim.keymap.set('n', '<leader>R', vim.lsp.buf.implementation, opts)
-	vim.keymap.set('n', '<leader>r', vim.lsp.buf.references, opts)
+	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+	vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, opts)
+	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+	vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 	vim.keymap.set('n', '<leader>h', vim.lsp.buf.hover, opts)
-	vim.keymap.set('n', '<leader>f', vim.lsp.buf.signature_help, opts)
-	vim.keymap.set('n', '<M-q>', vim.lsp.buf.signature_help, opts)
-	vim.keymap.set('i', '<M-q>', vim.lsp.buf.signature_help, opts)
-	vim.keymap.set('n', '<C-Space>', vim.lsp.buf.hover, opts)
-	vim.keymap.set('n', '<C-x>', vim.lsp.buf.hover, opts)
+	vim.keymap.set('n', '<leader>s', vim.lsp.buf.signature_help, opts)
 	vim.keymap.set('n', '<leader>H', toggle_inlay_hints)
 	-- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
 	-- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-	vim.keymap.set('n', '<M-r>', vim.lsp.buf.rename, opts)
-	vim.keymap.set('n', '<M-a>', vim.lsp.buf.code_action, opts)
-	vim.keymap.set('n', '<leader><Del>', vim.diagnostic.open_float, opts)
+	vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, opts)
+	vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, opts)
+	vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
 	vim.keymap.set('n', '<C-Del>', vim.diagnostic.open_float, opts)
-	vim.keymap.set('n', '<C-BS> ', vim.diagnostic.open_float, opts) -- fallback for windows
 	-- It's not really a keybind but whatever
 	vim.api.nvim_create_user_command(
 		'Format',
@@ -147,12 +143,44 @@ function KEYBINDS:set_telescope_keys(opts)
 	local telescope = require('telescope.builtin')
 	local theme = require('telescope.themes')
 
-	vim.keymap.set('n', '<leader>p', telescope.find_files, opts)
-	vim.keymap.set('n', '<leader>s', wrap(telescope.lsp_dynamic_workspace_symbols, {layout_strategy = 'vertical'}), opts)
-	vim.keymap.set('n', '<leader>/', wrap(telescope.live_grep, {layout_strategy = 'vertical'}), opts)
-	vim.keymap.set('n', '<leader>]', wrap(telescope.lsp_references, {layout_strategy = 'vertical'}), opts)
-	vim.keymap.set('n', '<leader>r', wrap(telescope.lsp_references, {layout_strategy = 'vertical'}), opts) -- overrule lsp bind
-	vim.keymap.set('n', '<leader>;', telescope.git_bcommits, opts)
+	local api = require('remote-sshfs.api')
+	vim.keymap.set('n', '<leader>rc', api.connect, {})
+	vim.keymap.set('n', '<leader>rd', api.disconnect, {})
+	vim.keymap.set('n', '<leader>re', api.edit, {})
+
+	local builtin = require("telescope.builtin")
+	local connections = require("remote-sshfs.connections")
+
+	vim.keymap.set("n", "<C-f>", function()
+		if connections.is_connected() then
+			api.find_files()
+		else
+			builtin.find_files()
+		end
+	end, {})
+	vim.keymap.set("n", "<leader>f", function()
+		if connections.is_connected() then
+			api.find_files()
+		else
+			builtin.find_files()
+		end
+	end, {})
+
+	vim.keymap.set("n", "<leader>/", function()
+		if connections.is_connected() then
+			api.live_grep()
+		else
+			builtin.live_grep()
+		end
+	end, {})
+
+	-- vim.keymap.set('n', '<leader>p', telescope.find_files, opts)
+	vim.keymap.set('n', '<leader>S', wrap(telescope.lsp_dynamic_workspace_symbols, {layout_strategy = 'vertical'}), opts)
+	-- vim.keymap.set('n', '<leader>/', wrap(telescope.live_grep, {layout_strategy = 'vertical'}), opts)
+	vim.keymap.set('n', 'gts',  telescope.lsp_document_symbols, opts)
+	vim.keymap.set('n', 'gtr', wrap(telescope.lsp_references, {layout_strategy = 'vertical'}), opts) -- overrule lsp bind
+	vim.keymap.set('n', 'gtg', telescope.git_bcommits, opts)
+	vim.keymap.set('n', '<leader>.',   wrap(telescope.current_buffer_fuzzy_find, {layout_strategy = 'vertical'}), opts)
 
 	if not vim.g.disable_legacy_keybinds then
 		-- File navigation
@@ -160,11 +188,11 @@ function KEYBINDS:set_telescope_keys(opts)
 		vim.keymap.set('n', '<C-ESC>', wrap(telescope.oldfiles, {layout_strategy = 'vertical' }), opts)
 		vim.keymap.set('n', '<M-!>',   wrap(telescope.oldfiles, {layout_strategy = 'vertical' }), opts) -- fallback for windows... even <M-Esc> is used
 
-		vim.keymap.set('n', '<C-f>',   telescope.find_files, opts)
-		vim.keymap.set('n', '<M-f>',   telescope.find_files, opts) -- fallback for windows
+		-- vim.keymap.set('n', '<C-f>',   telescope.find_files, opts)
+		-- vim.keymap.set('n', '<M-f>',   telescope.find_files, opts) -- fallback for windows
 
-		vim.keymap.set('n', '<C-,>',   wrap(telescope.live_grep, {layout_strategy = 'vertical'}), opts)
-		vim.keymap.set('n', '<M-,>',   wrap(telescope.live_grep, {layout_strategy = 'vertical'}), opts) -- fallback for windows
+		-- vim.keymap.set('n', '<C-,>',   wrap(telescope.live_grep, {layout_strategy = 'vertical'}), opts)
+		-- vim.keymap.set('n', '<M-,>',   wrap(telescope.live_grep, {layout_strategy = 'vertical'}), opts) -- fallback for windows
 
 		vim.keymap.set('n', '<M-]>',   wrap(telescope.lsp_references, theme.get_dropdown()), opts)
 
@@ -180,8 +208,6 @@ function KEYBINDS:set_telescope_keys(opts)
 		vim.keymap.set('n', '<M-/>',   wrap(telescope.current_buffer_fuzzy_find, {layout_strategy = 'vertical'}), opts) -- fallback for windows
 		-- Symbols with telescope
 		vim.keymap.set('n', '<C-\\>',  telescope.lsp_document_symbols, opts)
-		vim.keymap.set('n', '<leader>/',  telescope.lsp_document_symbols, opts)
-		vim.keymap.set('n', '<leader>s',   wrap(telescope.lsp_dynamic_workspace_symbols, {layout_strategy = 'vertical'}), opts)
 		vim.keymap.set('n', '<C-|>',   wrap(telescope.lsp_dynamic_workspace_symbols, {layout_strategy = 'vertical'}), opts)
 		vim.keymap.set('n', '<M-|>',   wrap(telescope.lsp_dynamic_workspace_symbols, {layout_strategy = 'vertical'}), opts)
 		-- Resule last
