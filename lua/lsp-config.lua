@@ -10,6 +10,7 @@ return {
 	{ name = 'ruby_lsp' },
 	{ name = 'elixirls', config = { cmd= {"/usr/bin/elixir-ls" } } },
 	{ name = 'gopls' },
+	{ name = 'golangci_lint_ls' },
 	{ name = 'dartls' },
 	-- { name = 'rust_analyzer', config = { settings = { ['rust-analyzer'] = { checkOnSave = { command = "clippy" } } } } },
 	-- { name = 'java_language_server', config = { cmd = { '/home/alemi/dev/software/java-language-server/dist/lang_server_linux.sh' } } },
